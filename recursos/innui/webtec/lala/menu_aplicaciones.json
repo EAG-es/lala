@@ -1,0 +1,32 @@
+[
+    {
+        "texto": "Crear proyecto",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/crear_proyectos?innui_webtec_gui_autoformularios_accion=https://innui/webtec/lala/procesar_crear_proyectos' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    },
+    {
+        "texto": "Abrir proyecto",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/abrir_proyectos?innui_webtec_gui_autoformularios_accion=https://innui/webtec/lala/procesar_abrir_proyectos' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    },
+    {
+        "texto": "Crear archivo",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/crear_archivos?innui_webtec_gui_autoformularios_accion=https://innui/webtec/lala/procesar_crear_archivos' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    },
+    {
+        "texto": "Abrir archivo",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/abrir_archivos?innui_webtec_gui_autoformularios_accion=https://innui/webtec/lala/procesar_abrir_archivos' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    },
+    {
+        "texto": "Guardar archivo",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/guardar_archivos' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    },
+    {
+        "texto": "Ver historial",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/gui/ver_historiales' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    }
+]

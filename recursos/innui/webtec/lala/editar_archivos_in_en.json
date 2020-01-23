@@ -1,0 +1,54 @@
+[
+    {
+      "clave": "acci&oacute;n",
+      "valor": "action"
+    },
+    {
+      "clave": "objeto",
+      "valor": "object"
+    },
+    {
+      "clave": "crear proyecto",
+      "valor": "open project"
+    },
+    {
+      "clave": "abrir proyecto",
+      "valor": "open file"
+    },
+    {
+      "clave": "crear archivo",
+      "valor": "create file"
+    },
+    {
+      "clave": "abrir archivo",
+      "valor": "open file"
+    },
+    {
+      "clave": "ver historial",
+      "valor": "browse history"
+    },
+    {
+      "clave": "abrir",
+      "valor": "open"
+    },
+    {
+      "clave": "crear",
+      "valor": "create"
+    },
+    {
+      "clave": "ver",
+      "valor": "browse"
+    },
+    {
+      "clave": "archivo",
+      "valor": "file"
+    },
+    {
+      "clave": "historial",
+      "valor": "history"
+    },
+    {
+      "clave": "proyecto",
+      "valor": "project"
+    }
+]

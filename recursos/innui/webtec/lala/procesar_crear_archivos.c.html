@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <style>        
+            {% include innui/webtec/lala/paginas_principales#paginas_principales_css %}
+        </style>
+        <script type="text/javascript">
+            {% include innui/webtec/gui/menu_aplicaciones#in_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#in_parcial_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones_js %}
+        </script>
+    </head>
+    <body>
+        {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones %}
+        {% if $innui_webtec_gui_autoformularios_error %}
+            {$innui_webtec_gui_autoformularios_error}
+        {% else %} 
+            <h1>{$in_}Procesar crear archivo{$_in}</h1>
+            ¡Archivo creado con éxito!
+            {$innui_webtec_lala_procesar_crear_archvivos: }
+        {% endif %}
+    </body>
+</html>

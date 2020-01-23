@@ -1,0 +1,89 @@
+[
+    {
+        "plantilla":"submit_botones",
+        "nombre":"pedir_accion_boton",
+        "valor":"",
+        "titulo":"{$in_}Pedir acción{$_in}",
+        "checked":""
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"asignar_referencia_boton",
+        "valor":"",
+        "titulo":"{$in_}Asignar referencia{$_in}",
+        "checked":""
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"crear_si_condicion_boton",
+        "valor":"",
+        "titulo":"{$in_}Crear si &lt;condición&gt;{$_in}",
+        "checked":""
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"crear_contra_si_condicion_boton",
+        "valor":"",
+        "titulo":"{$in_}Crear contra si &lt;condición&gt;{$_in}",
+        "checked":""
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"crear_variable_boton",
+        "valor":"",
+        "titulo":"{$in_}Crear variable{$_in}",
+        "checked":""
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"crear_atributo_semiconstante_boton",
+        "valor":"",
+        "titulo":"{$in_}Crear atributo o semiconstante{$_in}",
+        "checked":""
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"crear_subaccion_boton",
+        "valor":"",
+        "titulo":"{$in_}Crear subacción{$_in}",
+        "checked":""
+    }, 
+    {
+        "plantilla":"lineas",
+        "nombre":"comentario",
+        "valor":"",
+        "titulo":"{$in_}Comentario:{$_in}"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":"repetir",
+        "titulo":"{$in_}repetir{$_in}"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":"salir",
+        "titulo":"{$in_}salir{$_in}"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":"contra",
+        "titulo":"{$in_}contra{$_in}"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":"tratable",
+        "titulo":"{$in_}tratable{$_in}"
+    }, 
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_html_lala_linea_numero"
+    },
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_webtec_lala_espacios_num"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "plantilla":"elegir_archivos",
+        "nombre":"ruta_seleccionada",
+        "valor":"",
+        "titulo":"{$in_}Seleccione la carpeta donde crear el proyecto:{$_in}"
+    },
+    {
+        "plantilla":"lineas",
+        "nombre":"nombre_proyecto",
+        "valor":"",
+        "titulo":"{$in_}Introduzca el nombre del proyecto (minúsculas y singular):{$_in}"
+    }
+]

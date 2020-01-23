@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <style>        
+            {% include innui/webtec/lala/paginas_principales#paginas_principales_css %}
+            {#paginas_principales_css}
+            #innui_webtec_gui_menu_aplicaciones {
+                position: -webkit-sticky;
+                position: sticky;
+                top: 0px;
+                z-index: 5;
+                background-color: beige;
+            }
+            .innui_webtec_gui_menu_aplicaciones_div {
+                display: inline-block;
+            }
+            .innui_webtec_gui_menu_aplicaciones_a {
+                display: inline-block;
+                text-decoration: none;
+            }
+            .innui_webtec_gui_titulo {
+                display: inline-block;
+                width: 200px;    
+                vertical-align: top;
+            }
+            .innui_webtec_gui_entrada {
+                display: inline-block;
+                width: 310px; 
+            }
+            .innui_webtec_gui_div_error {
+                color: red; 
+            }  
+            .innui_webtec_gui_div_boton {
+                width: 600px; 
+            }  
+            .innui_webtec_gui_boton {
+                display: inline-block;
+                width: 150px; 
+            }
+            .innui_webtec_gui_divs  {
+                font-style: oblique;
+                color: darkgreen; 
+            }          
+            {#}
+        </style>
+        <script type="text/javascript">
+            {% include innui/webtec/gui/menu_aplicaciones#in_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#in_parcial_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones_js %}
+        </script>
+    </head>
+    <body>
+        {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones %}
+        <h1>{$in_}Lala página principal{$_in}</h1>
+        {$innui_webtec_lala_paginas_principales: }
+    </body>
+</html>

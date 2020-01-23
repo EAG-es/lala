@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <style>        
+            {% include innui/webtec/lala/paginas_principales#paginas_principales_css %}
+            {% include innui/webtec/gui/menu_contextuales#innui_webtec_gui_menu_contextuales_css %}
+        </style>
+        <script type="text/javascript">
+            {% include innui/webtec/gui/menu_aplicaciones#in_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#in_parcial_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones_js %}
+            {% include innui/webtec/gui/menu_contextuales#innui_webtec_gui_menu_contextuales_js %}
+            {% include innui/webtec/lala/editar_archivos#innui_webtec_lala_editar_archivos_js %}
+            {#innui_webtec_lala_editar_archivos_js}
+            function innui_html_lala_onclick_linea (objeto_llamante, palabra_clave, linea) {
+                var extras;
+                extras = "innui_html_lala_linea_numero" + "=";
+                extras = extras + encodeURIComponent(linea);
+                innui_webtec_gui_menu_contextuales_mostrar_menu_contextual(objeto_llamante, palabra_clave, extras);
+            }
+            {#}
+        </script>
+    </head>
+    <body>
+        {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones %}
+        {% include innui/webtec/gui/menu_contextuales#innui_webtec_gui_menu_contextuales %}
+        <h1>{$innui_webtec_lala_editar_archivos_nombre}</h1>
+        {% if $innui_webtec_lala_editar_archivos_error %}
+        <div class="innui_webtec_gui_div_error">{$innui_webtec_lala_editar_archivos_error}</div>
+        {% endif %}
+        {$innui_webtec_lala_editar_archivos}
+    </body>
+</html>

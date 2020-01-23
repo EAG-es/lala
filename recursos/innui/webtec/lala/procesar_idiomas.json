@@ -1,0 +1,25 @@
+[
+    {
+        "plantilla":"autoselecciones_inicios",
+        "nombre":"innui_webtec_lala_idioma",
+        "prefijo_href":"https://innui/webtec/lala/procesar_idiomas?innui_webtec_lala_idioma=",
+        "titulo":""
+    },
+    {
+        "plantilla":"selecciones_opciones",
+        "nombre":"innui_webtec_lala_idioma",
+        "valor":"es",
+        "titulo":"Español",
+        "selected":""
+    },
+    {
+        "plantilla":"selecciones_opciones",
+        "nombre":"innui_webtec_lala_idioma",
+        "valor":"en",
+        "titulo":"English"
+    },
+    {
+        "plantilla":"selecciones_finales",
+        "nombre":""
+    }
+]

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <style>        
+            {% include innui/webtec/lala/paginas_principales#paginas_principales_css %}
+        </style>
+        <script type="text/javascript">
+            {% include innui/webtec/gui/menu_aplicaciones#in_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#in_parcial_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones_js %}
+            {% include innui/webtec/gui/elegir_archivos#innui_webtec_gui_elegir_archivos_js %}
+        </script>
+    </head>
+    <body>
+        {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones %}
+        <h1>{$in_}Crear archivo{$_in}</h1>
+        El archivo debe estar dentro de una carpeta dentro del proyecto.<br>
+        Los nombres de capeta se recomienda que se organicen en dos niveles sucesivos (in&lt;interfaz&gt;/&lt;tecnología&gt;) seguido por un tercer nivel que representa el nombre del proyecto, o su area específico de aplicación:
+        <ul>
+            <li>Internacionalizado (prefijo: in) + Interfaz de usuario que utilizan:
+                <ul>
+                <li>innui: Internacionalicado + No interactua con el usuario (usa cadenas de texto, datos, archivos, etc. sin intervención del usuario)</li>
+                <li>Ejemplos del nivel siguiente:<ul>
+                    <li>archivo: trabaja con archivos</li>
+                    <li>ente: estructuras de datos: entidades</li>
+                    <li>html: trabaja con formatos de presentación HTML</li>
+                    <li>json: trabaja con formatos de datos JSON</li>
+                    <li>webtec: html + plantillas</li>
+                    <li>xml: trabaja con formatos de datos XML</li>                    
+                </ul></li>
+                <li>incli: Internacionalicado + cliente de servidor (No interactúa con el usuario y se comunica con servidores)</li>
+                <li>Ejemplos del nivel siguiente:<ul>
+                    <li>database: trabaja con clientes de bases de datos</li>
+                    <li>restful: trabaja con arquitectura RestFull</li>
+                    <li>soap: trabaja con arquitectura SOAP</li>
+                    <li>tcp: trabaja con arquitectura TCP</li>
+                    <li>web: trabaja con arquitectura web</li>
+                </ul></li>
+                <li>inser: Internacionalicado + servidor (No interactúa con el usuario y se comunica con servidores)</li>
+                <li>Ejemplos del nivel siguiente:<ul>
+                    <li>igual que en: incli</li>
+                </ul></li>
+                <li>inclui: Internacionalicado + Interfaz de linea de comando (combina la entrada-salida estandar de consola)</li>
+                <li>Ejemplos del nivel siguiente:<ul>
+                    <li>stream: Lee de la entrada estandar, y escribe en la salida estandar, como una corriente de datos</li>
+                    <li>chat: Lee datos, y los escribe, tras interacciones intermitentes con el usuario</li>
+                </ul></li>
+                <li>ingui: Internacionalicado + Interfaz grafico (interactúa con eventos gráficos del usuario)</li>
+                <li>Ejemplos del nivel siguiente:<ul>
+                    <li>javafx: trabaja con la tecnología Java FX</li>
+                    <li>swing: trabaja con la tecnología Swing</li>
+                    <li>gtk: trabaja con librerías gráficas GTK</li>
+                    <li>wpf: trabaja con librerías gráficas Windows</li>
+                </ul></li>
+            </ul></li>
+        </ul>
+        {% include innui/webtec/gui/autoformularios#innui_webtec_gui_autoformularios %}
+    </body>
+</html>

@@ -5,30 +5,39 @@
         <style>        
             {% include innui/webtec/lala/paginas_principales#paginas_principales_css %}
             {% include innui/webtec/gui/menu_contextuales#innui_webtec_gui_menu_contextuales_css %}
+            .innui_webtec_gui_titulo {
+                display: block;
+                width: 100%;
+            }
+            .innui_webtec_gui_entrada {
+                width: 100%;
+            }
         </style>
         <script type="text/javascript">
             {% include innui/webtec/gui/menu_aplicaciones#in_js %}
             {% include innui/webtec/gui/menu_aplicaciones#in_parcial_js %}
             {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones_js %}
+            {% include innui/webtec/gui/elegir_archivos#innui_webtec_gui_elegir_archivos_js %}
             {% include innui/webtec/gui/menu_contextuales#innui_webtec_gui_menu_contextuales_js %}
             {% include innui/webtec/lala/editar_archivos#innui_webtec_lala_editar_archivos_js %}
-            {#innui_webtec_lala_editar_archivos_js}
-            function innui_html_lala_onclick_linea (objeto_llamante, palabra_clave, linea) {
-                var extras;
-                extras = "innui_html_lala_linea_numero" + "=";
-                extras = extras + encodeURIComponent(linea);
-                innui_webtec_gui_menu_contextuales_mostrar_menu_contextual(objeto_llamante, palabra_clave, extras);
+            function configurar_multilinea () {
+                var elementos_array = [];
+                elementos_array = document.getElementsByName("editar_lineas");
+                if (elementos_array.length > 0) {
+                    elementos_array[0].rows = 15;
+                }
             }
-            {#}
         </script>
     </head>
     <body>
         {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones %}
         {% include innui/webtec/gui/menu_contextuales#innui_webtec_gui_menu_contextuales %}
-        <h1>{$innui_webtec_lala_editar_archivos_nombre}</h1>
-        {% if $innui_webtec_lala_editar_archivos_error %}
-        <div class="innui_webtec_gui_div_error">{$innui_webtec_lala_editar_archivos_error}</div>
-        {% endif %}
-        {$innui_webtec_lala_editar_archivos}
+        <h1>{$in_}Editar líneas{$_in}</h1>
+        {$innui_webtec_lala_previo: }
+        {% include innui/webtec/gui/autoformularios#innui_webtec_gui_autoformularios %}
+        {$innui_webtec_lala_posterior: }
+        <script>
+            configurar_multilinea ();
+        </script>        
     </body>
 </html>

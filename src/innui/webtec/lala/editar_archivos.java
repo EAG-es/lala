@@ -6,11 +6,11 @@
 package innui.webtec.lala;
 
 import innui.webtec.A_ejecutores;
+import static innui.webtec.lala.abrir_archivos.abrir_archivo;
+import static innui.webtec.lala.abrir_archivos.k_contexto_archivo_abierto;
+import static innui.webtec.lala.crear_proyectos.k_configuraciones_archivo_seleccionado;
 import static innui.webtec.lala.paginas_principales.poner_cabecera_en_mapa;
 import static innui.webtec.lala.paginas_principales.poner_menu_contextual_en_mapa;
-import static innui.webtec.lala.procesar_abrir_archivos.abrir_archivo;
-import static innui.webtec.lala.procesar_abrir_archivos.k_contexto_archivo_abierto;
-import static innui.webtec.lala.procesar_crear_proyectos.k_configuraciones_archivo_seleccionado;
 import java.io.File;
 import java.util.Map;
 
@@ -21,6 +21,7 @@ public class editar_archivos extends A_ejecutores {
     public static String k_mapa_editar_archivos_nombre = "innui_webtec_lala_editar_archivos_nombre";
     public static String k_mapa_editar_archivos_error = "innui_webtec_lala_editar_archivos_error";
     public static String k_mapa_editar_archivos = "innui_webtec_lala_editar_archivos";
+    public static String k_ruta_editar_archivos = "/lala/editar_archivos";    
     /**
      * Modifica o añade datos que le van a llegar a la plantilla asociada
      * @param objects_mapa datos con nombre que están disponibles
@@ -66,7 +67,7 @@ public class editar_archivos extends A_ejecutores {
             if (error[0] == null) {
                 error[0] = ""; //NOI18N
             }
-            error[0] = "Error en ejecutar.editar_archivos";
+            error[0] = "Error en ejecutar.editar_archivos. " + error [0];
             ret = false;
         }
         return ret;

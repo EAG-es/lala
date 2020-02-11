@@ -17,8 +17,9 @@ import static innui.html.lala.Decoraciones.k_sufijo_linea;
 import innui.webtec.A_ejecutores;
 import innui.webtec.Webtec_controlador;
 import static innui.webtec.Webtec_controlador.poner_url_ref_a_contenido;
-import static innui.webtec.lala.procesar_abrir_archivos.k_contexto_archivo_abierto;
-import static innui.webtec.lala.procesar_abrir_archivos.k_ruta_editar_archivos;
+import static innui.webtec.lala.abrir_archivos.k_contexto_archivo_abierto;
+import static innui.webtec.lala.editar_archivos.k_mapa_editar_archivos_error;
+import static innui.webtec.lala.editar_archivos.k_ruta_editar_archivos;
 import java.net.URL;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ public class comentar_lineas extends A_ejecutores {
     public static String k_operacion_borrar = "borrar"; //NOI18N
     public static String k_operacion_descomentar = "descomentar"; //NOI18N
     public static String k_operacion_comentar = "comentar"; //NOI18N
+    public static String k_ruta_comentar_lineas = "/lala/comentar_lineas";   
     /**
      * Modifica o añade datos que le van a llegar a la plantilla asociada
      * @param objects_mapa datos con nombre que están disponibles
@@ -84,9 +86,8 @@ public class comentar_lineas extends A_ejecutores {
             if (ret) {
                 ret = poner_url_ref_a_contenido(k_prefijo_ancla_linea + linea_mapa, objects_mapa, error);
             }
-            if (ret == false) {
-                objects_mapa.put(k_mapa_comentar_lineas, error[0]);
-            } else {
+            if (ret) {
+                objects_mapa.put(k_mapa_editar_archivos_error, error[0]);
                 url = Urls.completar_URL(k_prefijo_url + k_ruta_editar_archivos, k_protocolo_por_defecto, error);
                 ret = Webtec_controlador.poner_redireccion(contexto, url, true, null, error);
             }
@@ -95,7 +96,7 @@ public class comentar_lineas extends A_ejecutores {
             if (error[0] == null) {
                 error[0] = ""; //NOI18N
             }
-            error[0] = "Error en ejecutar.guardar_archivos. " + error[0];
+            error[0] = "Error en ejecutar.comentar_lineas. " + error[0];
             ret = false;
         }
         return ret;

@@ -25,7 +25,7 @@ import static innui.webtec.lala.paginas_principales.poner_menu_contextual_en_map
  * Clase de ejemplo, con plantilla asociada, de aplicación que hace uso de los autoformularios.
  */
 public class insertar_subacciones extends A_ejecutores { 
-    public static String k_insertar_nivel_acciones = "/lala/procesar_insertar_nivel_acciones";
+    public static String k_insertar_nivel_acciones = "/lala/insertar_nivel_acciones";
     /**
      * Modifica o añade datos que le van a llegar a la plantilla asociada
      * @param objects_mapa datos con nombre que están disponibles
@@ -44,20 +44,18 @@ public class insertar_subacciones extends A_ejecutores {
             if (ret) {
                 ret = poner_menu_contextual_en_mapa(contexto, objects_mapa, error);
             }
-            if (ret) {
-                previo_texto = contexto.leer(k_contexto_previo).dar();
-                posterior_texto = contexto.leer(k_contexto_posterior).dar();
-                objects_mapa.put(k_mapa_texto_previo, previo_texto); 
-                objects_mapa.put(k_mapa_texto_posterior, posterior_texto);                 
-                url_accion = Urls.completar_URL(k_prefijo_url + k_insertar_nivel_acciones, k_protocolo_por_defecto, error);
-                objects_mapa.put(k_mapa_autoformularios_accion, url_accion.toExternalForm());
-                if (objects_mapa.containsKey(k_mapa_autoformularios_error) == false) { //NOI18N
-                    objects_mapa.put(k_mapa_autoformularios_error, ""); //NOI18N
-                }
-                autoformulario = new autoformularios();
-                autoformulario.configurar(contexto);
-                ret = autoformulario.ejecutar(objects_mapa, error);
+            previo_texto = contexto.leer(k_contexto_previo).dar();
+            posterior_texto = contexto.leer(k_contexto_posterior).dar();
+            objects_mapa.put(k_mapa_texto_previo, previo_texto); 
+            objects_mapa.put(k_mapa_texto_posterior, posterior_texto);                 
+            url_accion = Urls.completar_URL(k_prefijo_url + k_insertar_nivel_acciones, k_protocolo_por_defecto, error);
+            objects_mapa.put(k_mapa_autoformularios_accion, url_accion.toExternalForm());
+            if (ret == false) {
+                objects_mapa.put(k_mapa_autoformularios_error, error[0]); 
             }
+            autoformulario = new autoformularios();
+            autoformulario.configurar(contexto);
+            ret = autoformulario.ejecutar(objects_mapa, error);
             if (ret == false) {
                 objects_mapa.put(k_mapa_autoformularios_error, error[0]); 
             }

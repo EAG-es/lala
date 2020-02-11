@@ -23,9 +23,6 @@ import static innui.html.lala.Decoraciones.k_retornar;
 import static innui.html.lala.Decoraciones.k_tratable;
 import innui.webtec.A_ejecutores;
 import static innui.webtec.Webtec_controlador.poner_redireccion;
-import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_error;
-import innui.webtec.gui.autoformularios_errores;
-import static innui.webtec.lala.procesar_abrir_archivos.k_contexto_archivo_abierto;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +36,6 @@ import static innui.webtec.lala.insertar_lineas.k_contexto_previo;
 import static innui.html.lala.Decoraciones.k_captura;
 import static innui.html.lala.Decoraciones.k_coma;
 import static innui.html.lala.Decoraciones.k_comentario_fin;
-import static innui.html.lala.Decoraciones.k_comentario_inicio;
 import static innui.html.lala.Decoraciones.k_comentario_marca_linea;
 import static innui.html.lala.Decoraciones.k_corchete_abrir;
 import static innui.html.lala.Decoraciones.k_corchete_cerrar;
@@ -50,24 +46,33 @@ import static innui.html.lala.Decoraciones.k_puntos_suspensivos;
 import static innui.html.lala.Decoraciones.k_subaccion;
 import static innui.webtec.lala.editar_archivos.k_mapa_editar_archivos_error;
 import static innui.html.lala.Decoraciones.k_variable;
-import static innui.webtec.gui.autoformularios_errores.k_mapa_autoformulario_errores;
+import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_accion;
+import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_error;
+import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_presentar;
+import static innui.webtec.lala.abrir_archivos.k_contexto_archivo_abierto;
+import static innui.webtec.lala.crear_archivos.k_extension_lala;
+import static innui.webtec.lala.crear_proyectos.k_carpeta_lala;
+import static innui.webtec.lala.crear_proyectos.k_configuraciones_archivo_seleccionado;
+import static innui.webtec.lala.crear_proyectos.k_configuraciones_ruta_seleccionada;
+import static innui.webtec.lala.crear_proyectos.k_prefijo_acciones;
 import static innui.webtec.lala.insertar_lineas.k_mapa_espacios_num;
-import static innui.webtec.lala.procesar_crear_archivos.k_extension_lala;
-import static innui.webtec.lala.procesar_crear_proyectos.k_carpeta_lala;
-import static innui.webtec.lala.procesar_crear_proyectos.k_configuraciones_archivo_seleccionado;
-import static innui.webtec.lala.procesar_crear_proyectos.k_configuraciones_ruta_seleccionada;
-import static innui.webtec.lala.procesar_crear_proyectos.k_prefijo_acciones;
+import static innui.webtec.lala.insertar_lineas.k_ruta_insertar_lineas;
 import java.io.File;
 import java.io.PrintStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static innui.html.lala.Decoraciones.k_comentario_doc_inicio;
 
 /**
  * Clase de ejemplo de procesamiento de un formulario, en el que se encuentra un error, y se retorna el mismo formulario más el mensaje de error
  */
-public class procesar_insertar_nivel_acciones extends A_ejecutores {
-    public static String k_mapa_procesar_insertar_nivel_acciones = "innui_webtec_lala_procesar_insertar_nivel_acciones";
+public class insertar_nivel_acciones extends A_ejecutores {
     public static String k_ruta_editar_archivos = "/lala/editar_archivos";
+    public static String k_ruta_insertar_nivel_acciones = "/lala/insertar_nivel_acciones";
+    public static String k_operacion_accion = "accion";
+    public static String k_operacion_accion_local = "accion_local";
+    public static String k_operacion_subaccion = "subaccion";
+    
     /**
      * Modifica o añade datos que le van a llegar a la plantilla asociada
      * @param objects_mapa datos con nombre que están disponibles
@@ -77,8 +82,6 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
     @Override
     public boolean ejecutar(Map<String, Object> objects_mapa, String[] error) {
         boolean ret = true;
-        autoformularios_errores autoformulario_error;
-        String innui_webtec_gui_autoformularios_errores = "";
         String texto;
         String verbo = null;
         URL url;
@@ -95,7 +98,7 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
         textos final_texto = null;
         String tipo_accion;
         textos decorado_texto = null;
-        String [] error_parcial = { "" };
+        String [] error_local = { "" };
         int linea;
         String comentario = null;
         boolean es_solo_comentario = false;
@@ -105,14 +108,13 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
         String relleno = "";
         String firma_accion = "";
         String comentario_y_firma_accion;
-        String acciones_encontradas_texto;
         String nombre_accion;
         try {
             error[0] = "";
             tipo_accion = (String) objects_mapa.get("tipo_accion");
             espacios = (String) objects_mapa.get(k_mapa_espacios_num);
             espacios_num = Integer.valueOf(espacios);
-            if (tipo_accion.equals(k_subaccion)) {
+            if (tipo_accion.equals(k_operacion_subaccion)) {
                 if (espacios_num == 0) {
                     ret = false;
                     error[0] = "No se permite: subaccion, fuera de: accion o accion local. ";
@@ -134,33 +136,33 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                 }                
                 verbo = (String) objects_mapa.get("verbo");
                 verbo = verbo.trim();
-                ret = validar_verbo(verbo, error_parcial);
-                error[0] = error[0] + error_parcial[0];
+                ret = validar_verbo(verbo, error_local);
+                error[0] = error[0] + error_local[0];
+                error_local[0] = "";
                 comentario = (String) objects_mapa.get("comentario");
-                if (verbo.isEmpty() && comentario.isEmpty() == false) {
-                    ret = true;
+                if (verbo.trim().isEmpty() && comentario.trim().isEmpty() == false) {
                     es_solo_comentario = true;
                 }
-                if (comentario.isEmpty() == false) {
-                    comentario = relleno + k_comentario_inicio + "\n"
-                      + relleno + k_comentario_marca_linea + comentario + "\n";
-                }
+                comentario = relleno + k_comentario_doc_inicio + "\n"
+                  + relleno + k_comentario_marca_linea + comentario.trim() + "\n";
                 if (es_solo_comentario == false) {
                     objetivo = (String) objects_mapa.get("objetivo");
                     objetivo = objetivo.trim();
-                    ret = ret && validar_objetivo(objetivo, error_parcial);
-                    error[0] = error[0] + error_parcial[0];
+                    ret = ret && validar_objetivo(objetivo, error_local);
+                    error[0] = error[0] + error_local[0];
+                    error_local[0] = "";
                     parametro = (String) objects_mapa.get("parametro_1");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         parametros_list.add(parametro);
                         comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                        ret = ret && validar_variable(parametro, error_parcial);
-                        error[0] = error[0] + error_parcial[0];
+                        ret = ret && validar_variable(parametro, error_local);
+                        error[0] = error[0] + error_local[0];
+                        error_local[0] = "";
                     } else {
                         es_parametro_vacio = true;
                     }
                     parametro = (String) objects_mapa.get("parametro_2");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         if (es_parametro_vacio) {
                             ret = false;
                             error[0] = error[0] + "Parametro vacío antes de: " + parametro + ". ";
@@ -168,14 +170,15 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                             parametro = parametro.trim();
                             parametros_list.add(parametro);
                             comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                            ret = ret && validar_variable(parametro, error_parcial);
-                            error[0] = error[0] + error_parcial[0];
+                            ret = ret && validar_variable(parametro, error_local);
+                            error[0] = error[0] + error_local[0];
+                            error_local[0] = "";
                         }
                     } else {
                         es_parametro_vacio = true;
                     }
                     parametro = (String) objects_mapa.get("parametro_3");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         if (es_parametro_vacio) {
                             ret = false;
                             error[0] = error[0] + "Parametro vacío antes de: " + parametro + ". ";
@@ -183,14 +186,15 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                             parametro = parametro.trim();
                             parametros_list.add(parametro);
                             comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                            ret = ret && validar_variable(parametro, error_parcial);
-                            error[0] = error[0] + error_parcial[0];
+                            ret = ret && validar_variable(parametro, error_local);
+                            error[0] = error[0] + error_local[0];
+                            error_local[0] = "";
                         }
                     } else {
                         es_parametro_vacio = true;
                     }
                     parametro = (String) objects_mapa.get("parametro_4");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         if (es_parametro_vacio) {
                             ret = false;
                             error[0] = error[0] + "Parametro vacío antes de: " + parametro + ". ";
@@ -198,14 +202,15 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                             parametro = parametro.trim();
                             parametros_list.add(parametro);
                             comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                            ret = ret && validar_variable(parametro, error_parcial);
-                            error[0] = error[0] + error_parcial[0];
+                            ret = ret && validar_variable(parametro, error_local);
+                            error[0] = error[0] + error_local[0];
+                            error_local[0] = "";
                         }
                     } else {
                         es_parametro_vacio = true;
                     }
                     parametro = (String) objects_mapa.get("parametro_5");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         if (es_parametro_vacio) {
                             ret = false;
                             error[0] = error[0] + "Parametro vacío antes de: " + parametro + ". ";
@@ -213,14 +218,15 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                             parametro = parametro.trim();
                             parametros_list.add(parametro);
                             comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                            ret = ret && validar_variable(parametro, error_parcial);
-                            error[0] = error[0] + error_parcial[0];
+                            ret = ret && validar_variable(parametro, error_local);
+                            error[0] = error[0] + error_local[0];
+                            error_local[0] = "";
                         }
                     } else {
                         es_parametro_vacio = true;
                     }
                     parametro = (String) objects_mapa.get("parametro_6");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         if (es_parametro_vacio) {
                             ret = false;
                             error[0] = error[0] + "Parametro vacío antes de: " + parametro + ". ";
@@ -228,12 +234,13 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                             parametro = parametro.trim();
                             parametros_list.add(parametro);
                             comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                            ret = ret && validar_variable(parametro, error_parcial);
-                            error[0] = error[0] + error_parcial[0];
+                            ret = ret && validar_variable(parametro, error_local);
+                            error[0] = error[0] + error_local[0];
+                            error_local[0] = "";
                         }
                     }
                     parametro = (String) objects_mapa.get("parametro_7");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         if (es_parametro_vacio) {
                             ret = false;
                             error[0] = error[0] + "Parametro vacío antes de: " + parametro + ". ";
@@ -241,14 +248,15 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                             parametro = parametro.trim();
                             parametros_list.add(parametro);
                             comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                            ret = ret && validar_variable(parametro, error_parcial);
-                            error[0] = error[0] + error_parcial[0];
+                            ret = ret && validar_variable(parametro, error_local);
+                            error[0] = error[0] + error_local[0];
+                            error_local[0] = "";
                         }
                     } else {
                         es_parametro_vacio = true;
                     }
                     parametro = (String) objects_mapa.get("parametro_8");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         if (es_parametro_vacio) {
                             ret = false;
                             error[0] = error[0] + "Parametro vacío antes de: " + parametro + ". ";
@@ -256,14 +264,15 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                             parametro = parametro.trim();
                             parametros_list.add(parametro);
                             comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                            ret = ret && validar_variable(parametro, error_parcial);
-                            error[0] = error[0] + error_parcial[0];
+                            ret = ret && validar_variable(parametro, error_local);
+                            error[0] = error[0] + error_local[0];
+                            error_local[0] = "";
                         }
                     } else {
                         es_parametro_vacio = true;
                     }
                     parametro = (String) objects_mapa.get("parametro_9");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         if (es_parametro_vacio) {
                             ret = false;
                             error[0] = error[0] + "Parametro vacío antes de: " + parametro + ". ";
@@ -271,23 +280,25 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                             parametro = parametro.trim();
                             parametros_list.add(parametro);
                             comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                            ret = ret && validar_variable(parametro, error_parcial);
-                            error[0] = error[0] + error_parcial[0];
+                            ret = ret && validar_variable(parametro, error_local);
+                            error[0] = error[0] + error_local[0];
+                            error_local[0] = "";
                         }
                     } else {
                         es_parametro_vacio = true;
                     }
                     parametro = (String) objects_mapa.get("parametro_10");
-                    if (parametro != null && parametro.isEmpty() == false) {
+                    if (parametro != null && parametro.trim().isEmpty() == false) {
                         if (es_parametro_vacio) {
                             ret = false;
                             error[0] = error[0] + "Parametro vacío antes de: " + parametro + ". ";
                         } else {
                             parametro = parametro.trim();
                             parametros_list.add(parametro);
-                            ret = ret && validar_variable(parametro, error_parcial);
+                            ret = ret && validar_variable(parametro, error_local);
                             comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_param + parametro + "\n";
-                            error[0] = error[0] + error_parcial[0];
+                            error[0] = error[0] + error_local[0];
+                            error_local[0] = "";
                         }
                     } else {
                         es_parametro_vacio = true;
@@ -295,18 +306,18 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                 }
             }
             if (ret) {
-                if (comentario.isEmpty() == false) {
+                if (comentario.trim().isEmpty() == false) {
                     comentario = comentario + relleno + k_comentario_fin + "\n";
                 }
                 texto = contexto.leer(k_contexto_archivo_abierto).dar();
                 ret = (texto != null);
                 if (es_solo_comentario == false) {
                     if (ret) {
-                        if (tipo_accion.equals("accion")) {
+                        if (tipo_accion.equals(k_operacion_accion)) {
                             firma_accion = relleno + k_accion;
-                        } else if (tipo_accion.equals("accion_local")) {
+                        } else if (tipo_accion.equals(k_operacion_accion_local)) {
                             firma_accion = relleno + k_accion_local;
-                        } else if (tipo_accion.equals("subaccion")) {
+                        } else if (tipo_accion.equals(k_operacion_subaccion)) {
                             firma_accion = relleno + k_subaccion;
                         } else {
                             ret = false;
@@ -314,24 +325,26 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                         }
                     }
                     if (ret) {
-                        nombre_accion = verbo + " " + objetivo;
-                        firma_accion = firma_accion + nombre_accion;
-                        firma_accion = firma_accion + k_indentado + k_parentesis_abrir;
-                        for (String nodo: parametros_list) {
-                            if (nueva_linea.endsWith(k_parentesis_abrir) == false) {
-                                firma_accion = firma_accion + k_coma;
+                        if (tipo_accion.equals(k_operacion_subaccion) == false) {
+                            nombre_accion = verbo + " " + objetivo;
+                            firma_accion = firma_accion + nombre_accion;
+                            firma_accion = firma_accion + k_indentado + k_parentesis_abrir;
+                            for (String nodo: parametros_list) {
+                                if (firma_accion.endsWith(k_parentesis_abrir) == false) {
+                                    firma_accion = firma_accion + k_coma;
+                                }
+                                firma_accion = firma_accion + nodo;
                             }
-                            firma_accion = firma_accion + nodo;
+                            firma_accion = firma_accion + k_puntos_suspensivos + k_parentesis_cerrar + "\n";
+                            comentario_y_firma_accion = comentario + firma_accion;
+                            nueva_linea = comentario_y_firma_accion + relleno + k_indentado + k_variable + "\n";
+                            nueva_linea = nueva_linea + relleno + k_indentado + k_tratable + "\n";
+                            nueva_linea = nueva_linea + relleno + k_indentado + k_captura + "\n";
+                            nueva_linea = nueva_linea + relleno + k_indentado + k_finalmente + "\n";
+                            nueva_linea = nueva_linea + relleno + k_indentado + k_fin_bloque_tratable + "\n";
+                            nueva_linea = nueva_linea + relleno + k_retornar + "\n";
+                            ret = escribir_archivo_acciones(contexto, objects_mapa, nombre_accion, comentario_y_firma_accion, error);
                         }
-                        firma_accion = firma_accion + k_puntos_suspensivos + k_parentesis_cerrar + "\n";
-                        comentario_y_firma_accion = comentario + firma_accion;
-                        nueva_linea = comentario_y_firma_accion + relleno + k_indentado + k_variable + "\n";
-                        nueva_linea = nueva_linea + relleno + k_indentado + k_tratable + "\n";
-                        nueva_linea = nueva_linea + relleno + k_indentado + k_captura + "\n";
-                        nueva_linea = nueva_linea + relleno + k_indentado + k_finalmente + "\n";
-                        nueva_linea = nueva_linea + relleno + k_indentado + k_fin_bloque_tratable + "\n";
-                        nueva_linea = nueva_linea + relleno + k_retornar + "\n";
-                        ret = escribir_archivo_acciones(contexto, objects_mapa, nombre_accion, comentario_y_firma_accion, error);
                     }
                 } else {
                     nueva_linea = comentario;
@@ -372,22 +385,21 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
                 ret = poner_url_ref_a_contenido(k_prefijo_ancla_linea + linea_mapa, objects_mapa, error);
             }
             if (ret) {
-                objects_mapa.put(k_mapa_editar_archivos_error, "");
                 url = Urls.completar_URL(k_prefijo_url + k_ruta_editar_archivos, k_protocolo_por_defecto, error);
                 ret = poner_redireccion(contexto, url, true, null, error);
-            }
+                    }
             if (ret == false) {
+                url = Urls.completar_URL(k_prefijo_url + k_ruta_insertar_lineas, k_protocolo_por_defecto, error);
                 objects_mapa.put(k_mapa_autoformularios_error, error[0]);
-                autoformulario_error = new autoformularios_errores();
-                autoformulario_error.configurar(contexto);
-                ret = autoformulario_error.ejecutar(objects_mapa, error);
+                objects_mapa.put(k_mapa_autoformularios_accion, url.toExternalForm());
+                ret = poner_redireccion(contexto, url, true, null, error);
             } 
         } catch (Exception e) {
             error [0] = e.getMessage();
             if (error[0] == null) {
                 error[0] = ""; //NOI18N
             }
-            error[0] = "Error en procesar.procesar_insertar_nivel_acciones. " + error[0];
+            error[0] = "Error en ejecutar.insertar_nivel_acciones. " + error[0];
             ret = false;
         }
         return ret;
@@ -398,9 +410,9 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
         String minusculas;
         String patron;
         error[0] = "";
-        if (variable == null || variable.isEmpty()) {
+        if (variable == null || variable.trim().isEmpty()) {
             ret = false;
-            error[0] = "Valor no indicado. ";
+            error[0] = "Nombre no indicado. ";
         } else {
             patron = "[a-zñáéíóúç_][a-zñáéíóúç0-9_ ]*";
             if (variable.matches(patron) == false) {
@@ -414,7 +426,7 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
             }
             if (minusculas.endsWith("s")) {
                 ret = false;
-                error[0] = error[0] + minusculas + ": deben tener un significado singular. ";
+                error[0] = error[0] + minusculas + ": deben estar en singular. ";
             }
         }
         return ret;
@@ -429,7 +441,7 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
     public static boolean validar_verbo(String verbo, String [] error) {
         boolean ret = true;
         Locale locale;
-        if (verbo == null || verbo.isEmpty()) {
+        if (verbo == null || verbo.trim().isEmpty()) {
             ret = false;
             error[0] = error[0] + "Verbo de la acción no indicado. ";
         } else {
@@ -451,6 +463,7 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
         boolean ret = true;
         String ruta_seleccionada = null;
         String archivo_seleccionado = null;
+        String ruta_accion;
         Map<String, String> configuraciones_mapa = null;
         String nombre_proyecto = null;
         File file = null;
@@ -471,15 +484,16 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
             ret = (archivo_seleccionado != null);
         }
         if (ret) {
-            pos = archivo_seleccionado.lastIndexOf(k_carpeta_lala);
-            if (pos < 0) {
+            if (archivo_seleccionado.startsWith(ruta_seleccionada) == false) {
                 ret = false;
-                error[0] = "El archivo seleccionado no está dentro de la carpeta " + k_carpeta_lala + ". ";
+                error[0] = "El archivo seleccionado no está dentro de la carpeta del proyecto" + ruta_seleccionada + ". ";
             }
         }
         if (ret) {
-            pos = pos + k_carpeta_lala.length();
-            ruta_parcial_archivo = archivo_seleccionado.substring(pos);
+            ruta_parcial_archivo = extraer_ruta_parcial(ruta_seleccionada, archivo_seleccionado, error);
+            ret = (ruta_parcial_archivo != null);
+        }
+        if (ret) {
             file = new File(ruta_seleccionada);
             file = file.getParentFile();
             ruta_seleccionada = file.getAbsolutePath();
@@ -498,7 +512,8 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
             texto = Utf8.leer(file, error);
             nombre_accion = nombre_accion.trim();
             nombre_accion = nombre_accion.replaceAll("\\s+", "\\\\s+");
-            nombre_accion = nombre_accion + "[^\\[]+ " + ruta_parcial_archivo + k_corchete_cerrar;
+            nombre_accion = nombre_accion + "[^\\" + k_corchete_abrir.trim() + "]+\\"+ k_corchete_abrir.trim() + "\\s+" + ruta_parcial_archivo + "\\s+\\" + k_corchete_cerrar.trim();
+            nombre_accion = "(?m)" + nombre_accion; // multilinea
             patron = Pattern.compile(nombre_accion);
             matcher = patron.matcher(texto);
             if (matcher.find(0)) {
@@ -519,10 +534,19 @@ public class procesar_insertar_nivel_acciones extends A_ejecutores {
         }
         if (ret) {
             texto = comentario_y_firma.substring(0, pos);
-            texto = texto + k_indentado + k_corchete_abrir + ruta_parcial_archivo + k_corchete_cerrar + "\n";
+            ruta_accion = componer_ruta_accion(ruta_parcial_archivo, error);
+            texto = texto + ruta_accion;
             printstream.print(texto);
+            objects_mapa.put(k_mapa_editar_archivos_error, "Acción incorporada al archivo: " + ruta_seleccionada + ". ");
         }
         return ret;
     }
-    
+
+    public static String extraer_ruta_parcial(String ruta_seleccionada, String archivo_seleccionado, String [] error) {
+        return archivo_seleccionado.substring(ruta_seleccionada.length());
+    }
+
+    public static String componer_ruta_accion(String ruta_parcial_archivo, String [] error) {
+        return k_indentado + k_corchete_abrir + ruta_parcial_archivo + k_corchete_cerrar + "\n";
+    }
 }

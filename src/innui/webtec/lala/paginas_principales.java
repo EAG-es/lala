@@ -14,12 +14,12 @@ import static innui.webtec.Webtec_controlador.poner_redireccion;
 import innui.webtec.gui.configuraciones;
 import innui.webtec.gui.menu_aplicaciones;
 import innui.webtec.gui.menu_contextuales;
+import static innui.webtec.lala.crear_proyectos.k_configuraciones_archivo_seleccionado;
+import static innui.webtec.lala.crear_proyectos.k_configuraciones_ruta_seleccionada;
 import static innui.webtec.lala.editar_archivos.k_mapa_editar_archivos_error;
-import static innui.webtec.lala.procesar_abrir_archivos.k_ruta_editar_archivos;
+import static innui.webtec.lala.editar_archivos.k_ruta_editar_archivos;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import static innui.webtec.lala.procesar_crear_proyectos.k_configuraciones_archivo_seleccionado;
-import static innui.webtec.lala.procesar_crear_proyectos.k_configuraciones_ruta_seleccionada;
 import java.net.URL;
 
 /**
@@ -28,6 +28,8 @@ import java.net.URL;
 public class paginas_principales extends A_ejecutores {
     public static String k_nombre_configuracion = "configuracion";
     public static String k_nombre_paginas_principales = "innui_webtec_lala_paginas_principales";
+    public static String k_ruta_paginas_principales = "/lala/paginas_principales";
+    
     /**
      * Modifica o añade datos que le van a llegar a la plantilla asociada
      * @param objects_mapa datos con nombre que están disponibles
@@ -49,11 +51,11 @@ public class paginas_principales extends A_ejecutores {
             }
             if (ret) {
                 ruta_seleccionada = (String) configuraciones_mapa.get(k_configuraciones_ruta_seleccionada);
-                if (ruta_seleccionada == null || ruta_seleccionada.isEmpty()) {
+                if (ruta_seleccionada == null || ruta_seleccionada.trim().trim().isEmpty()) {
                     objects_mapa.put(k_nombre_paginas_principales, "No hay proyecto abierto. ");
                 } else {
                     archivo_seleccionado = (String) configuraciones_mapa.get(k_configuraciones_archivo_seleccionado);
-                    if (archivo_seleccionado == null || archivo_seleccionado.isEmpty()) {
+                    if (archivo_seleccionado == null || archivo_seleccionado.trim().isEmpty()) {
                         objects_mapa.put(k_nombre_paginas_principales, "No hay archivo abierto. ");
                     } else {
                         objects_mapa.put(k_mapa_editar_archivos_error, "");
@@ -70,7 +72,7 @@ public class paginas_principales extends A_ejecutores {
             if (error[0] == null) {
                 error[0] = ""; //NOI18N
             }
-            error[0] = "Error en ejecutar.lala_pagina_principal. " + error[0];
+            error[0] = "Error en ejecutar.paginas_principales. " + error[0];
             ret = false;
         }
         return ret;

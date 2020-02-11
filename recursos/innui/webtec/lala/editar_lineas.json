@@ -1,0 +1,16 @@
+[
+    {
+        "plantilla":"multilineas",
+        "nombre":"editar_lineas",
+        "valor":"",
+        "titulo":"Modifique el texto (no se hace control de errores):"
+    },
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_html_lala_linea_numero"
+    },
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_webtec_lala_espacios_num"
+    }
+]

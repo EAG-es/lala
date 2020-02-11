@@ -21,7 +21,7 @@ public class Decoraciones {
     public static String k_mapa_linea_numero = "innui_html_lala_linea_numero";
     public static String k_nombre_onclick_linea = "innui_html_lala_onclick_linea";
     public static String k_prefijo_ancla_linea = "linea_";
-    public static String k_prefijo_linea = "<a id='" + k_prefijo_ancla_linea;
+    public static String k_prefijo_linea = "<a class=\"innui_webtec_gui_menu_aplicaciones_a\" id='" + k_prefijo_ancla_linea;
     public static String k_infijo_linea = "' href='' onclick='" + k_nombre_onclick_linea + "(this, \"linea\", \"";
     public static String k_presufijo_linea = "\"); return false'>";
     public static String k_sufijo_linea = "</a>";
@@ -31,21 +31,25 @@ public class Decoraciones {
     public static String k_html_nueva_linea = "<br>";
     public static String k_html_espacio = "&nbsp;";
     public static String k_indentado = "    ";
+    public static String k_indentado_sustitucion = "&%$·";
     public static String k_parentesis_abrir = " ( ";
     public static String k_parentesis_cerrar = " ) ";
     public static String k_corchete_abrir = " [ ";
     public static String k_corchete_cerrar = " ] ";
     public static String k_puntos_suspensivos = " ... ";
+    public static String k_rompe_linea = " \\ ";
     public static String k_coma = " , ";
+    public static String k_punto = " . ";
     public static String k_decoracion_inicio = "<!--decoracion-->\n";
     public static String k_decoracion_fin = "<!--/decoracion-->\n";
     public static String k_accion = " accion ";
     public static String k_accion_local = " accion local ";
     public static String k_variable = " variable ";
     public static String k_subaccion = " subaccion ";
-    public static String k_comentario_inicio = " /**";
+    public static String k_comentario_doc_inicio = " /** ";
+    public static String k_comentario_inicio = " /* ";
     public static String k_comentario_marca_linea = " * ";
-    public static String k_comentario_fin = " */";
+    public static String k_comentario_fin = " */ ";
     public static String k_comentario_linea = " // ";
     public static String k_documentacion_param = " @param ";
     public static String k_si = " si ";
@@ -61,11 +65,18 @@ public class Decoraciones {
     public static String k_retornar = " retornar ";
     public static String k_verdad = " verdad ";
     public static String k_falso = " falso ";
-    public static List<String> lista_palabras_clave = new ArrayList () {{
+    public static String k_ente_nulo = " ente_nulo ";
+    public static String k_no_lala = "no_lala";
+    public static String k_fin_bloque_no_lala = "/no_lala";
+    public static List<String> palabras_clave_accion_lista = new ArrayList () {{
         add(k_accion);
         add(k_accion_local);
+        add(k_retornar);
+    }};
+    public static List<String> palabras_clave_codigo_lista = new ArrayList () {{
         add(k_variable);
         add(k_subaccion);
+        add(k_retornar);
         add(k_si);
         add(k_contra);
         add(k_fin_bloque_si);
@@ -76,13 +87,16 @@ public class Decoraciones {
         add(k_captura);
         add(k_finalmente);
         add(k_fin_bloque_tratable);
-        add(k_retornar);
+        add(k_no_lala);
+        add(k_fin_bloque_no_lala);
+    }};
+    public static List<String> palabras_clave_interna_lista = new ArrayList () {{
         add(k_verdad);
         add(k_falso);
         add(k_documentacion_param);
+        add(k_ente_nulo);
     }};
-    
-    
+        
     public static boolean decorar(String texto, textos decorado_texto, textos error, i_eles ... contextos_array) {
         boolean ret = true;
         String resultado_texto = "";
@@ -109,7 +123,7 @@ public class Decoraciones {
         try {
             resultado_leer_texto = texto;
             resultado_leer_texto = resultado_leer_texto.replace("\r", "");
-            resultado_leer_texto = resultado_leer_texto.replaceAll("\\n[ ]*\\n", "\n");
+            resultado_leer_texto = resultado_leer_texto.replaceAll("\\n\\s*\\n", "\n");
             stringreader = new StringReader(resultado_leer_texto);
             bufferedreader = new BufferedReader(stringreader);
             while (true) {
@@ -133,12 +147,19 @@ public class Decoraciones {
                 }
             }
             if (ret) {
-                for (String palabra_clave: lista_palabras_clave) {
+                for (String palabra_clave: palabras_clave_accion_lista) {
+                    resultado_texto = resultado_texto.replace(k_sufijo_linea + palabra_clave, k_sufijo_linea + k_prefijo_span_azul + palabra_clave + k_sufijo_span);
+                }
+                for (String palabra_clave: palabras_clave_codigo_lista) {
+                    resultado_texto = resultado_texto.replace(k_indentado + palabra_clave, k_indentado + k_prefijo_span_azul + palabra_clave + k_sufijo_span);
+                }
+                for (String palabra_clave: palabras_clave_interna_lista) {
                     resultado_texto = resultado_texto.replace(palabra_clave, k_prefijo_span_azul + palabra_clave + k_sufijo_span);
                 }
+                resultado_texto = resultado_texto.replace(k_comentario_doc_inicio, k_prefijo_span_gris + k_comentario_doc_inicio);
                 resultado_texto = resultado_texto.replace(k_comentario_inicio, k_prefijo_span_gris + k_comentario_inicio);
                 resultado_texto = resultado_texto.replace(k_comentario_fin, k_comentario_fin + k_sufijo_span);
-                resultado_texto = resultado_texto.replaceAll("\\t", " " + k_html_espacio+k_html_espacio + " ");
+                resultado_texto = resultado_texto.replaceAll("\\t", " " + k_html_espacio + k_html_espacio + " ");
                 resultado_texto = resultado_texto.replaceAll("\\s\\s\\s\\s", " " + k_html_espacio+k_html_espacio + " ");
                 resultado_texto = resultado_texto.replaceAll("\\s\\s", k_html_espacio + " ");
                 decorado_texto.poner(resultado_texto);
@@ -223,40 +244,42 @@ public class Decoraciones {
     
     public static boolean desdecorar(String texto, textos desdecorado_texto, textos error, i_eles ... contextos_array) {
         boolean ret = true;
-        int linea = 0;
+//        int linea = 0;
         String resultado_texto = "";
-        StringReader stringreader;
-        BufferedReader bufferedreader;
-        String linea_texto;
+//        StringReader stringreader;
+//        BufferedReader bufferedreader;
+//        String linea_texto;
         textos intermedio_texto;
         try {
             resultado_texto = texto;
-            stringreader = new StringReader(resultado_texto);
-            bufferedreader = new BufferedReader(stringreader);
-            resultado_texto = "";
-            while (true) {
-                linea = linea + 1;
-                linea_texto = bufferedreader.readLine();
-                if (linea_texto == null) {
-                    break;
-                }
-                if (linea_texto.contains(k_comentario_linea)) {
-                    linea_texto = linea_texto.replace(k_prefijo_span_gris + k_comentario_linea, k_comentario_linea);
-                    linea_texto = linea_texto.replace(k_sufijo_span + k_html_nueva_linea, "");
-                }
-                resultado_texto = resultado_texto + linea_texto + "\n";
-            }
+//            stringreader = new StringReader(resultado_texto);
+//            bufferedreader = new BufferedReader(stringreader);
+//            resultado_texto = "";
+//            while (true) {
+//                linea = linea + 1;
+//                linea_texto = bufferedreader.readLine();
+//                if (linea_texto == null) {
+//                    break;
+//                }
+//                if (linea_texto.contains(k_comentario_linea)) {
+//                    linea_texto = linea_texto.replace(k_prefijo_span_gris + k_comentario_linea, k_comentario_linea);
+//                    linea_texto = linea_texto.replace(k_sufijo_span + k_html_nueva_linea, "");
+//                }
+//                resultado_texto = resultado_texto + linea_texto + "\n";
+//            }
             intermedio_texto = new textos(resultado_texto);
             ret = quitar_numeros_linea(intermedio_texto, error);
             if (ret) {
                 resultado_texto = intermedio_texto.dar();
                 resultado_texto = resultado_texto.replace(k_html_espacio, " ");
+                resultado_texto = resultado_texto.replace(k_indentado, k_indentado_sustitucion);
+                resultado_texto = resultado_texto.replaceAll("  ", " ");
+                resultado_texto = resultado_texto.replace(k_indentado_sustitucion, k_indentado);
                 resultado_texto = resultado_texto.replace(k_html_nueva_linea, "");
-                for (String palabra_clave: lista_palabras_clave) {
-                    resultado_texto = resultado_texto.replace(k_prefijo_span_azul + palabra_clave + k_sufijo_span, palabra_clave);
-                }
-                resultado_texto = resultado_texto.replace(k_prefijo_span_gris + k_comentario_inicio, k_comentario_inicio);
-                resultado_texto = resultado_texto.replace(k_comentario_fin + k_sufijo_span, k_comentario_fin);
+                resultado_texto = resultado_texto.replace(k_prefijo_span_azul, "");
+                resultado_texto = resultado_texto.replace(k_sufijo_span, "");
+                resultado_texto = resultado_texto.replace(k_prefijo_span_gris, "");
+                resultado_texto = resultado_texto.replace(k_prefijo_span_gris, "");
                 desdecorado_texto.poner(resultado_texto);
             }
         } catch (Exception e) {
@@ -351,6 +374,14 @@ public class Decoraciones {
             }
         }
         espacios_num.poner(i);
+        return ret;
+    }
+    
+    public static boolean quitar_etiquetas_html(String texto, textos texto_sin_etiquetas, textos error) {
+        boolean ret = true;
+        String patron = "<[^>]+>";
+        texto = texto.replaceAll(patron, "");
+        texto_sin_etiquetas.poner(texto);
         return ret;
     }
 }

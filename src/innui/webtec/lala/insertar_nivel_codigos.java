@@ -19,12 +19,7 @@ import static innui.html.lala.Decoraciones.k_indentado;
 import static innui.html.lala.Decoraciones.k_salir;
 import static innui.html.lala.Decoraciones.k_tratable;
 import innui.webtec.A_ejecutores;
-import static innui.webtec.Webtec_controlador.poner_redireccion;
-import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_error;
-import innui.webtec.gui.autoformularios_errores;
-import static innui.webtec.gui.autoformularios_errores.k_mapa_autoformulario_errores;
 import static innui.webtec.lala.insertar_lineas.k_mapa_espacios_num;
-import static innui.webtec.lala.procesar_abrir_archivos.k_contexto_archivo_abierto;
 import java.net.URL;
 import java.util.Map;
 import static innui.html.lala.Decoraciones.k_mapa_linea_numero;
@@ -35,21 +30,31 @@ import static innui.webtec.lala.insertar_lineas.k_contexto_posterior;
 import static innui.webtec.lala.insertar_lineas.k_contexto_previo;
 import static innui.html.lala.Decoraciones.k_captura;
 import static innui.html.lala.Decoraciones.k_comentario_linea;
+import static innui.html.lala.Decoraciones.k_fin_bloque_no_lala;
+import static innui.html.lala.Decoraciones.k_no_lala;
+import static innui.webtec.Webtec_controlador.poner_redireccion;
+import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_accion;
+import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_error;
+import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_presentar;
+import static innui.webtec.lala.abrir_archivos.k_contexto_archivo_abierto;
 import static innui.webtec.lala.editar_archivos.k_mapa_editar_archivos_error;
-import static innui.webtec.lala.paginas_principales.poner_cabecera_en_mapa;
+import static innui.webtec.lala.insertar_lineas.k_ruta_insertar_lineas;
+import static innui.webtec.lala.insertar_pedir_acciones.k_mapa_instruccion;
 
 /**
  * Clase de ejemplo de procesamiento de un formulario, en el que se encuentra un error, y se retorna el mismo formulario más el mensaje de error
  */
-public class procesar_insertar_nivel_codigos extends A_ejecutores {
-    public static String k_mapa_procesar_insertar_nivel_codigos = "innui_webtec_lala_procesar_insertar_nivel_codigos";
+public class insertar_nivel_codigos extends A_ejecutores {
     public static String k_ruta_editar_archivos = "/lala/editar_archivos";
-    public static String k_ruta_pedir_accion = "/lala/pedir_acciones";
+    public static String k_ruta_insertar_pedir_accion = "/lala/insertar_pedir_acciones";
     public static String k_ruta_asignar_referencia = "/lala/asignar_referencias";
-    public static String k_ruta_crear_si_condicion = "/lala/crear_si_condiciones";
-    public static String k_ruta_crear_variable = "/lala/crear_variables";
-    public static String k_ruta_crear_atributo_semiconstante = "/lala/crear_atributos_semiconstantes";
+    public static String k_ruta_crear_variable = "/lala/insertar_variables";
+    public static String k_ruta_crear_atributo_semiconstante = "/lala/insertar_atributos_semiconstantes";
     public static String k_ruta_crear_subaccion = "/lala/insertar_subacciones";
+    public static String k_ruta_insertar_nivel_codigos = "/lala/insertar_nivel_codigos";
+    public static String k_codigo_si_condicion = "si";
+    public static String k_codigo_contra_si_condicion = "contra si";
+    
     /**
      * Modifica o añade datos que le van a llegar a la plantilla asociada
      * @param objects_mapa datos con nombre que están disponibles
@@ -59,8 +64,6 @@ public class procesar_insertar_nivel_codigos extends A_ejecutores {
     @Override
     public boolean ejecutar(Map<String, Object> objects_mapa, String[] error) {
         boolean ret = true;
-        autoformularios_errores autoformulario_error;
-        String innui_webtec_gui_autoformularios_errores = "";
         String tipo_codigo;
         URL url;
         String nueva_linea = "";
@@ -83,27 +86,22 @@ public class procesar_insertar_nivel_codigos extends A_ejecutores {
         try {
             boton = (String) objects_mapa.get("pedir_accion_boton");
             if (boton != null) {
-                url = Urls.completar_URL(k_prefijo_url + k_ruta_pedir_accion, k_protocolo_por_defecto, error);
+                url = Urls.completar_URL(k_prefijo_url + k_ruta_insertar_pedir_accion, k_protocolo_por_defecto, error);
                 ret = poner_redireccion(contexto, url, true, null, error);
-            }
-            if (boton == null) {
-                boton = (String) objects_mapa.get("asignar_referencia_boton");
-                if (boton != null) {
-                    url = Urls.completar_URL(k_prefijo_url + k_ruta_asignar_referencia, k_protocolo_por_defecto, error);
-                    ret = poner_redireccion(contexto, url, true, null, error);
-                }
             }
             if (boton == null) {
                 boton = (String) objects_mapa.get("crear_si_condicion_boton");
                 if (boton != null) {
-                    url = Urls.completar_URL(k_prefijo_url + k_ruta_crear_si_condicion, k_protocolo_por_defecto, error);
+                    objects_mapa.put(k_mapa_instruccion, k_codigo_si_condicion);
+                    url = Urls.completar_URL(k_prefijo_url + k_ruta_insertar_pedir_accion, k_protocolo_por_defecto, error);
                     ret = poner_redireccion(contexto, url, true, null, error);
                 }
             }
             if (boton == null) {
                 boton = (String) objects_mapa.get("crear_contra_si_condicion_boton");
                 if (boton != null) {
-                    url = Urls.completar_URL(k_prefijo_url + k_ruta_crear_si_condicion, k_protocolo_por_defecto, error);
+                    objects_mapa.put(k_mapa_instruccion, k_codigo_contra_si_condicion);
+                    url = Urls.completar_URL(k_prefijo_url + k_ruta_insertar_pedir_accion, k_protocolo_por_defecto, error);
                     ret = poner_redireccion(contexto, url, true, null, error);
                 }
             }
@@ -147,7 +145,7 @@ public class procesar_insertar_nivel_codigos extends A_ejecutores {
                 ret = (tipo_codigo != null);
                 comentario = (String) objects_mapa.get("comentario");
                 if (ret == false) {
-                    if (comentario.isEmpty()) {
+                    if (comentario.trim().isEmpty()) {
                         ret = false;
                         error[0] = "No se ha indicado el código que insertar. ";
                     } else {
@@ -156,7 +154,7 @@ public class procesar_insertar_nivel_codigos extends A_ejecutores {
                     }
                 }
                 if (ret) {
-                    if (comentario.isEmpty() == false) {
+                    if (comentario.trim().isEmpty() == false) {
                         comentario = relleno + k_comentario_linea + " " + comentario.trim() + "\n";
                     } else {
                         comentario = "";
@@ -174,6 +172,9 @@ public class procesar_insertar_nivel_codigos extends A_ejecutores {
                             nueva_linea = nueva_linea + relleno + k_captura + "\n";
                             nueva_linea = nueva_linea + relleno + k_finalmente + "\n";
                             nueva_linea = nueva_linea + relleno + k_fin_bloque_tratable + "\n";
+                        } else if (tipo_codigo.equals("no_lala")) {
+                            nueva_linea = comentario + relleno + k_no_lala + "\n";
+                            nueva_linea = nueva_linea + relleno + k_fin_bloque_no_lala + "\n";
                         }
                     }
                 }
@@ -194,7 +195,7 @@ public class procesar_insertar_nivel_codigos extends A_ejecutores {
                 }
                 if (ret) {
                     posterior_texto = contexto.leer(k_contexto_posterior).dar();
-                    if (previo_texto == null) {
+                    if (posterior_texto == null) {
                         ret = false;
                         error[0] = "No se ha encontrado el texto posterior en el contexto. ";
                     }
@@ -220,10 +221,11 @@ public class procesar_insertar_nivel_codigos extends A_ejecutores {
                     ret = poner_redireccion(contexto, url, true, null, error);
                 }
                 if (ret == false) {
+                    url = Urls.completar_URL(k_prefijo_url + k_ruta_insertar_lineas, k_protocolo_por_defecto, error);
                     objects_mapa.put(k_mapa_autoformularios_error, error[0]);
-                    autoformulario_error = new autoformularios_errores();
-                    autoformulario_error.configurar(contexto);
-                    ret = autoformulario_error.ejecutar(objects_mapa, error);
+                    objects_mapa.put(k_mapa_autoformularios_presentar, "");
+                    objects_mapa.put(k_mapa_autoformularios_accion, url.toExternalForm());
+                    ret = poner_redireccion(contexto, url, true, null, error);
                 }
             } 
         } catch (Exception e) {
@@ -231,7 +233,7 @@ public class procesar_insertar_nivel_codigos extends A_ejecutores {
             if (error[0] == null) {
                 error[0] = ""; //NOI18N
             }
-            error[0] = "Error en procesar.procesar_insertar_nivel_codigos. " + error[0];
+            error[0] = "Error en ejecutar.insertar_nivel_codigos. " + error[0];
             ret = false;
         }
         return ret;

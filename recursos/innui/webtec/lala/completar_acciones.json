@@ -1,0 +1,223 @@
+[
+    {
+        "plantilla":"divs",
+        "nombre":"innui_webtec_lala_reemplazar",
+        "titulo":"{$in_}Reemplazar: {$_in}",
+        "valor": ""
+    },
+    {
+        "plantilla":"lineas",
+        "nombre":"buscar_atributo",
+        "valor":"",
+        "titulo":"{$in_}Buscar atributo<br>(Max.3: grupo, grupo, grupo): {$_in}"
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"buscar_atributo_boton",
+        "valor":"",
+        "titulo":"{$in_}Buscar atributo{$_in}"
+    }, 
+    {
+        "plantilla":"divs",
+        "nombre":"atributos_titulo",
+        "titulo":"{$in_}Atributos encontradas (seleccionable): {$_in}"
+    },
+    {
+        "plantilla":"divs",
+        "nombre":"atributos",
+        "titulo":""
+    },
+    {
+        "plantilla":"lineas",
+        "nombre":"buscar_semiconstantes",
+        "valor":"",
+        "titulo":"{$in_}Buscar semiconstantes<br>(Max.3: grupo, grupo, grupo): {$_in}"
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"buscar_semiconstante_boton",
+        "valor":"",
+        "titulo":"{$in_}Buscar semiconstante{$_in}"
+    }, 
+    {
+        "plantilla":"divs",
+        "nombre":"semiconstantes_titulo",
+        "titulo":"{$in_}Semiconstantes encontradas (seleccionable): {$_in}"
+    },
+    {
+        "plantilla":"divs",
+        "nombre":"semiconstantes",
+        "titulo":""
+    },
+    {
+        "plantilla":"divs",
+        "nombre":"metodos_comunes",
+        "titulo":"{$in_}Métodos comunes: {$_in}<br>Si se selecciona un método común y, a continuación, una acción, parámetro o variable o subacción; se incluye tras él. Si se pulsa el botón aceptar, se incluye tras la llamada a una acción, de la línea (si la hay). "
+    },
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . poner ( /* valor accion */ )",
+        "titulo":" . poner"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . leer ( /* atributo te */ )",
+        "titulo":" . leer"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . es (  )",
+        "titulo":" . es"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . no es (  )",
+        "titulo":" . no es"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . es nulo (  )",
+        "titulo":" . es nulo"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . no es nulo (  )",
+        "titulo":" . es nulo"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . igual ( /* valor */ )",
+        "titulo":" . igual"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . mayor igual ( /* valor */ )",
+        "titulo":" . mayor igual"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . menor igual ( /* valor */ )",
+        "titulo":" . menor igual"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . mayor ( /* valor */ )",
+        "titulo":" . mayor"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . menor ( /* valor */ )",
+        "titulo":" . menor"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . y ( /* valor bp */ )",
+        "titulo":" . y"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . o ( /* valor bp */ )",
+        "titulo":" . o"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"tipo_codigo",
+        "valor":" . xor ( /* valor bp */ )",
+        "titulo":" . xor"
+    }, 
+    {
+        "plantilla":"divs",
+        "nombre":"acciones_archivo_titulo",
+        "titulo":"{$in_}Acciones del archivo (seleccionable): {$_in}"
+    },
+    {
+        "plantilla":"divs",
+        "nombre":"acciones_archivo",
+        "titulo":""
+    },
+    {
+        "plantilla":"lineas",
+        "nombre":"buscar_accion",
+        "valor":"",
+        "titulo":"{$in_}Buscar accion<br>(Max.3: grupo, grupo, grupo): {$_in}"
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"buscar_accion_boton",
+        "valor":"",
+        "titulo":"{$in_}Buscar accion{$_in}"
+    }, 
+    {
+        "plantilla":"divs",
+        "nombre":"acciones_titulo",
+        "titulo":"{$in_}Acciones encontradas (seleccionable): {$_in}"
+    },
+    {
+        "plantilla":"divs",
+        "nombre":"acciones",
+        "titulo":""
+    },
+    {
+        "plantilla":"divs",
+        "nombre":"variables_titulo",
+        "titulo":"{$in_}Parametros, variables, y subacciones, de la acción (seleccionable): {$_in}"
+    },
+    {
+        "plantilla":"divs",
+        "nombre":"variables_accion",
+        "titulo":""
+    },
+    {
+        "plantilla":"submit_botones",
+        "nombre":"nuevo_parametro_boton",
+        "valor":"",
+        "titulo":"{$in_}Nuevo parametro{$_in}"
+    }, 
+    {
+        "plantilla":"submit_botones",
+        "nombre":"nuevo_bloque_parametro_boton",
+        "valor":"",
+        "titulo":"{$in_}Nuevo bloque de parametros{$_in}"
+    }, 
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_html_lala_linea_numero"
+    },
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_webtec_lala_espacios_num"
+    },
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_webtec_lala_accion"
+    },
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_webtec_lala_parametro_y_variable"
+    },
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_webtec_lala_atributo"
+    },
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_webtec_lala_semiconstante"
+    },
+    {
+        "plantilla":"ocultos",
+        "nombre":"innui_webtec_lala_reemplazar"
+    }
+]

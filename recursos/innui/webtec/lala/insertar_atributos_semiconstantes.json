@@ -1,18 +1,5 @@
 [
     {
-        "plantilla":"radios",
-        "nombre":"operacion",
-        "valor":"semiconstante",
-        "titulo":"{$in_}Crear semiconstante{$_in}",
-        "checked":""
-    }, 
-    {
-        "plantilla":"radios",
-        "nombre":"operacion",
-        "valor":"atributo",
-        "titulo":"{$in_}Crear atributo{$_in}"
-    }, 
-    {
         "plantilla":"checkboxes",
         "nombre":"sobreescribir",
         "valor":"sobreescribir",
@@ -21,12 +8,7 @@
     {
         "plantilla":"divs",
         "nombre":"normas_atributos_semiconstantes",
-        "titulo":"{$in_}Normas de atributos y semiconstantes{$_in}:<br>{$in_}Singular; minúsculas; pueden contener espacios, letras, números (no el primer caracter) y _{$_in}<br>{$in_}Sufijos recomendados: bo (bool), en (entero), de (decimal), te (texto), con (contexto), lista, mapa, grupo,&lt;nada&gt;(entidad){$_in}<br>{$in_}Si es la instancia de una entidad, se recomienda que el nombre incluya el nombre de su clase.{$_in}"
-    },
-    {
-        "plantilla":"divs",
-        "nombre":"normas_atributos",
-        "titulo":"{$in_}Los atributos incorporan automáticamente, como prefijo, el nombre del archivo sin extensión.{$_in}"
+        "titulo":"{$in_}Normas de atributos y semiconstantes{$_in}:<br>{$in_}Singular; minúsculas; pueden contener espacios, letras, números (no el primer caracter) y _{$_in}<br>{$in_}Sufijos recomendados: bo (bool), en (entero), de (decimal), te (texto), con (contexto), su (subaccion), lista, mapa, grupo,&lt;nada&gt;(entidad){$_in}<br>{$in_}Si es la instancia de una entidad, se recomienda que el nombre incluya el nombre de su clase.{$_in}"
     },
     {
         "plantilla":"lineas",
@@ -36,9 +18,16 @@
     }, 
     {
         "plantilla":"divs",
-        "nombre":"normas_atributos_semiconstantes",
-        "titulo":"{$in_}Puede dejar vacías las cajas de valores y seleccionar otro tipo de instancia.{$_in}"
+        "nombre":"seccion_semiconstantes",
+        "titulo":"{$in_}- Indique las opciones para crear una semiconstante:{$_in}"
     },
+    {
+        "plantilla":"radios",
+        "nombre":"operacion",
+        "valor":"semiconstante",
+        "titulo":"<b>{$in_}Crear semiconstante (traducible):{$_in}</b>",
+        "checked":""
+    }, 
     {
         "plantilla":"lineas",
         "nombre":"valor_texto",
@@ -71,8 +60,48 @@
     }, 
     {
         "plantilla":"divs",
+        "nombre":"seccion_atributo",
+        "titulo":"{$in_}- Indique las opciones para crear un atributo:{$_in}"
+    },
+    {
+        "plantilla":"radios",
+        "nombre":"operacion",
+        "valor":"atributo",
+        "titulo":"<b>{$in_}Crear atributo:{$_in}</b>"
+    }, 
+    {
+        "plantilla":"divs",
+        "nombre":"tipos_simples",
+        "titulo":"{$in_}Tipos complejos{$_in}"
+    },
+    {
+        "plantilla":"radios",
+        "nombre":"sufijo",
+        "valor":"bo",
+        "titulo":"{$in_}Bool{$_in}"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"sufijo",
+        "valor":"en",
+        "titulo":"{$in_}Entero{$_in}"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"sufijo",
+        "valor":"de",
+        "titulo":"{$in_}Decimal{$_in}"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"sufijo",
+        "valor":"te",
+        "titulo":"{$in_}Texto{$_in}"
+    }, 
+    {
+        "plantilla":"divs",
         "nombre":"tipos_complejos",
-        "titulo":"{$in_}Tipos complejos (se ignoran, si hay un valor indicado){$_in}"
+        "titulo":"{$in_}Tipos complejos{$_in}"
     },
     {
         "plantilla":"radios",
@@ -97,6 +126,13 @@
         "nombre":"sufijo",
         "valor":"con",
         "titulo":"{$in_}Contexto{$_in}",
+        "checked":""
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"sufijo",
+        "valor":"su",
+        "titulo":"{$in_}Subaccion{$_in}",
         "checked":""
     }, 
     {

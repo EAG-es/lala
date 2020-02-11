@@ -2,7 +2,7 @@
     {
         "plantilla":"divs",
         "nombre":"normas_variables",
-        "titulo":"{$in_}Normas de variables{$_in}:<br>{$in_}Singular; minúsculas; pueden contener espacios, letras, números (no el primer caracter) y _{$_in}<br>{$in_}Sufijos recomendados: bo (bool), en (entero), de (decimal), te (texto), con (contexto), lista, mapa, grupo,&lt;nada&gt;(entidad){$_in}<br>{$in_}Si es la instancia de una entidad, se recomienda que el nombre incluya el nombre de su clase.{$_in}"
+        "titulo":"{$in_}Normas de variables{$_in}:<br>{$in_}Singular; minúsculas; pueden contener espacios, letras, números (no el primer caracter) y _{$_in}<br>{$in_}Sufijos recomendados: bo (bool), en (entero), de (decimal), te (texto), con (contexto), su (subaccion), lista, mapa, grupo,&lt;nada&gt;(entidad){$_in}<br>{$in_}Si es la instancia de una entidad, se recomienda que el nombre incluya el nombre de su clase.{$_in}"
     },
     {
         "plantilla":"lineas",
@@ -12,15 +12,9 @@
     }, 
     {
         "plantilla":"divs",
-        "nombre":"normas_atributos_semiconstantes",
+        "nombre":"indicacion_variables",
         "titulo":"{$in_}Puede dejar vacías las cajas de valores y seleccionar otro tipo de instancia.{$_in}"
     },
-    {
-        "plantilla":"lineas",
-        "nombre":"valor_texto",
-        "valor":"",
-        "titulo":"{$in_}Valor texto{$_in}"
-    }, 
     {
         "plantilla":"lineas",
         "nombre":"valor_entero",
@@ -46,6 +40,17 @@
         "titulo":"{$in_}Valor bool (falso){$_in}"
     }, 
     {
+        "plantilla":"divs",
+        "nombre":"intancias_nulas",
+        "titulo":"{$in_}Instancias que se inician con valor nulo (arriba no se debe indicar ningún valor):{$_in}"
+    },
+    {
+        "plantilla":"radios",
+        "nombre":"sufijo",
+        "valor":"te",
+        "titulo":"{$in_}Texto{$_in}"
+    }, 
+    {
         "plantilla":"radios",
         "nombre":"sufijo",
         "valor":"lista",
@@ -67,8 +72,13 @@
         "plantilla":"radios",
         "nombre":"sufijo",
         "valor":"con",
-        "titulo":"{$in_}Contexto{$_in}",
-        "checked":""
+        "titulo":"{$in_}Contexto{$_in}"
+    }, 
+    {
+        "plantilla":"radios",
+        "nombre":"sufijo",
+        "valor":"su",
+        "titulo":"{$in_}Subacción{$_in}"
     }, 
     {
         "plantilla":"radios",

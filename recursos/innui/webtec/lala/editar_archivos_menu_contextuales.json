@@ -5,6 +5,16 @@
         "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
     },
     {
+        "texto": "Completar línea",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/insertar_lineas?innui_webtec_gui_autoformularios_accion=https://innui/webtec/lala/insertar_lineas&completar_accion_boton&innui_webtec_gui_menu_contextuales_extras' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    },
+    {
+        "texto": "Editar líneas",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/insertar_lineas?innui_webtec_gui_autoformularios_accion=https://innui/webtec/lala/insertar_lineas&editar_lineas_boton&innui_webtec_gui_menu_contextuales_extras' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    },
+    {
         "texto": "Comentar línea",
         "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/comentar_lineas?innui_webtec_gui_menu_contextuales_extras' class='innui_webtec_gui_menu_aplicaciones_a'>",
         "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
@@ -17,11 +27,6 @@
     {
         "texto": "Borrar línea",
         "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/comentar_lineas?innui_webtec_lala_comentar_lineas_operacion=borrar&innui_webtec_gui_menu_contextuales_extras' class='innui_webtec_gui_menu_aplicaciones_a'>",
-        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
-    },
-    {
-        "texto": "Editar línea",
-        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/editar_lineas?innui_webtec_gui_autoformularios_accion=https://innui/webtec/lala/editar_lineas&innui_webtec_gui_menu_contextuales_extras' class='innui_webtec_gui_menu_aplicaciones_a'>",
         "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
     }
 ]

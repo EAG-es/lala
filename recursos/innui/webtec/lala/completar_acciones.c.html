@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <style>        
+            {% include innui/webtec/lala/paginas_principales#paginas_principales_css %}
+            {% include innui/webtec/gui/menu_contextuales#innui_webtec_gui_menu_contextuales_css %}
+        </style>
+        <script type="text/javascript">
+            {% include innui/webtec/gui/menu_aplicaciones#in_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#in_parcial_js %}
+            {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones_js %}
+            {% include innui/webtec/gui/menu_contextuales#innui_webtec_gui_menu_contextuales_js %}
+            {% include innui/webtec/lala/editar_archivos#innui_webtec_lala_editar_archivos_js %}
+            function innui_html_lala_onclick_pedir_accion (origen, valor) {
+                var elementos_array = [];
+                if (origen === "accion") {
+                    elementos_array = document.getElementsByName("innui_webtec_lala_accion");
+                    if (elementos_array.length > 0) {
+                        elementos_array[0].value = valor;
+                    }
+                    elementos_array[0].form.submit();
+                } else if (origen === "parametro_y_variable") {
+                    elementos_array = document.getElementsByName("innui_webtec_lala_parametro_y_variable");
+                    if (elementos_array.length > 0) {
+                        elementos_array[0].value = valor;
+                    }
+                    elementos_array[0].form.submit();
+                } else if (origen === "atributo") {
+                    elementos_array = document.getElementsByName("innui_webtec_lala_atributo");
+                    if (elementos_array.length > 0) {
+                        elementos_array[0].value = valor;
+                    }
+                    elementos_array[0].form.submit();
+                } else if (origen === "semiconstante") {
+                    elementos_array = document.getElementsByName("innui_webtec_lala_semiconstante");
+                    if (elementos_array.length > 0) {
+                        elementos_array[0].value = valor;
+                    }
+                    elementos_array[0].form.submit();
+                }
+            }
+        </script>
+    </head>
+    <body>
+        {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones %}
+        {% include innui/webtec/gui/menu_contextuales#innui_webtec_gui_menu_contextuales %}
+        <h1>{$in_}Completar acción{$_in}</h1>
+        {$innui_webtec_lala_previo: }
+        {% include innui/webtec/gui/autoformularios#innui_webtec_gui_autoformularios %}
+        {$innui_webtec_lala_posterior: }
+    </body>
+</html>

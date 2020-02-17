@@ -30,6 +30,7 @@ import static innui.html.lala.Decoraciones.k_rompe_linea;
 import static innui.html.lala.Decoraciones.k_si;
 import static innui.html.lala.Decoraciones.k_tratable;
 import static innui.webtec.Webtec_controlador.poner_redireccion;
+import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_cancelacion;
 import static innui.webtec.lala.abrir_archivos.k_contexto_archivo_abierto;
 import static innui.webtec.lala.editar_archivos.k_ruta_editar_archivos;
 import static innui.webtec.lala.paginas_principales.poner_cabecera_en_mapa;
@@ -71,6 +72,7 @@ public class insertar_lineas extends A_ejecutores {
         autoformularios autoformulario;
         enteros espacios_num = null;
         URL url_accion = null;
+        URL url_cancelacion = null;
         String texto_previo;
         String completar_linea_boton = null;
         String editar_lineas_boton = null;
@@ -147,6 +149,8 @@ public class insertar_lineas extends A_ejecutores {
             }
             objects_mapa.put(k_mapa_espacios_num, String.valueOf(espacios_num.dar()));
             objects_mapa.put(k_mapa_autoformularios_accion, url_accion.toExternalForm());
+            url_cancelacion = Urls.completar_URL(k_prefijo_url + k_ruta_editar_archivos, k_protocolo_por_defecto, error);
+            objects_mapa.put(k_mapa_autoformularios_cancelacion, url_cancelacion.toExternalForm());
             if (ret == false) {
                 objects_mapa.put(k_mapa_autoformularios_error, error[0]); 
             }

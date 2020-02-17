@@ -41,6 +41,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.StringReader;
 import java.net.URL;
+import static innui.webtec.lala.abrir_archivos.guardar_cambio;
 
 /**
  * Clase de ejemplo, con plantilla asociada, de aplicación que hace uso de los autoformularios.
@@ -187,6 +188,9 @@ public class editar_lineas extends A_ejecutores {
                 objects_mapa.put(k_mapa_editar_archivos_error, "");
                 url = Urls.completar_URL(k_prefijo_url + k_ruta_editar_archivos, k_protocolo_por_defecto, error);
                 ret = poner_redireccion(contexto, url, true, null, error);
+            }
+            if (ret) {
+                ret = guardar_cambio(contexto, decorado_texto.dar(), error);
             }
             if (ret == false) {
                 url = Urls.completar_URL(k_prefijo_url + k_ruta_editar_lineas, k_protocolo_por_defecto, error);

@@ -1,0 +1,35 @@
+<style>
+    .innui_webtec_gui_elegir_archivos_elemento {
+        display: inline-block
+    }
+    .innui_webtec_gui_elegir_archivos_nombre {
+        display: inline-block
+    }
+    .innui_webtec_gui_menu_aplicaciones_contenido {
+        display: inline-block
+    }
+    .innui_webtec_gui_icono {
+        width: 19px;
+        height: 19px
+    }
+    .innui_webtec_gui_elegir_archivos_seleccion {
+        color: darkgreen;
+    }
+</style>
+<script type="text/javascript">
+    {#innui_webtec_gui_elegir_archivos_js}
+    function submit_seleccion(nombre, valor) {
+        var elementos_array = [];
+        elementos_array = document.getElementsByName(nombre);
+        if (elementos_array.length > 0) {
+            elementos_array[0].value = valor;
+            elementos_array[0].form.submit();
+        }
+    }
+    {#}
+</script>
+<div class="innui_webtec_gui_input">
+    <div class="innui_webtec_gui_entrada">{$innui_webtec_gui_autoformularios_titulo: }</div>
+    <div class="innui_webtec_gui_elegir_archivos_seleccion">{$innui_webtec_gui_autoformularios_valor: }</div>
+    {$innui_webtec_gui_elegir_archivos: }
+</div>

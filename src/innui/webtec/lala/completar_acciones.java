@@ -80,6 +80,7 @@ import static innui.webtec.lala.insertar_variables.buscar_parametros_y_variables
 import static innui.webtec.lala.paginas_principales.poner_cabecera_en_mapa;
 import static innui.webtec.lala.paginas_principales.poner_menu_contextual_en_mapa;
 import java.util.Locale;
+import static innui.webtec.lala.abrir_archivos.guardar_cambio;
 
 /**
  * Clase de ejemplo de procesamiento de un formulario, en el que se encuentra un error, y se retorna el mismo formulario más el mensaje de error
@@ -99,6 +100,8 @@ public class completar_acciones extends A_ejecutores {
     public static String k_mapa_semiconstantes_encontradas = "semiconstantes"; //NOI18N
     public static String k_mapa_nuevo_parametro_boton = "nuevo_parametro_boton"; //NOI18N
     public static String k_mapa_nuevo_bloque_parametro_boton = "nuevo_bloque_parametro_boton"; //NOI18N
+    public static String k_mapa_valor_entero = "valor_entero"; //NOI18N
+    public static String k_mapa_valor_decimal = "valor_decimal"; //NOI18N
     /**
      * Modifica o añade datos que le van a llegar a la plantilla asociada
      * @param objects_mapa datos con nombre que están disponibles
@@ -217,20 +220,23 @@ public class completar_acciones extends A_ejecutores {
                 linea_texto = linea_desdecorada_texto.dar();
                 pos_inicial = linea_texto.indexOf(k_comentario_inicio.trim());
                 if (pos_inicial < 0) {
-                    ret = false;
-                    error[0] = "No hay parámetro que completar. ";
+                    if (linea_texto.contains(k_parentesis_cerrar.trim()) == false) {
+                        ret = false;
+                        error[0] = "No hay parámetro que completar. ";
+                    }
                 }
             }
             if (ret) {
                 pos_final  = linea_texto.indexOf(k_comentario_fin.trim());
                 if (pos_final < 0) {
-                    ret = false;
-                    error[0] = "No hay parámetro que completar. ";
-                } else {
-                    pos_final = pos_final + k_comentario_fin.trim().length();
+                    if (linea_texto.contains(k_parentesis_cerrar.trim()) == false) {
+                        ret = false;
+                        error[0] = "No hay parámetro que completar. ";
+                    }
                 }
             }
             if (ret) {
+                pos_final = pos_final + k_comentario_fin.trim().length();
                 linea_texto = linea_texto.substring(pos_inicial, pos_final);
                 objects_mapa.put(k_mapa_reemplazar, linea_texto);
                 buscar_accion_boton = (String) objects_mapa.get(k_mapa_buscar_accion_boton);
@@ -348,6 +354,8 @@ public class completar_acciones extends A_ejecutores {
         String relleno = "";
         String inicio_texto;
         String fin_texto;
+        String valor_entero;
+        String valor_decimal;
         boolean es_operacion_tras_parentesis = false;
         try {
             accion = (String) objects_mapa.get(k_mapa_accion);
@@ -368,6 +376,27 @@ public class completar_acciones extends A_ejecutores {
                 sin_datos = false;
                 texto = semiconstante;
             }
+            valor_entero  = (String) objects_mapa.get(k_mapa_valor_entero);
+            if (valor_entero != null && valor_entero.trim().isEmpty() == false) {
+                sin_datos = false;
+                try {
+                    texto = Integer.valueOf(valor_entero).toString();
+                } catch (Exception e) {
+                    ret = false;
+                    error[0] = "Entero no válido. ";
+                }
+            }
+            valor_decimal  = (String) objects_mapa.get(k_mapa_valor_decimal);
+            if (valor_decimal != null && valor_decimal.trim().isEmpty() == false) {
+                sin_datos = false;
+                try {
+                    valor_decimal = valor_decimal.replace(",", ".");
+                    texto = Double.valueOf(valor_decimal).toString();
+                } catch (Exception e) {
+                    ret = false;
+                    error[0] = "Fomato decimal no válido. ";
+                }
+            }
             nuevo_bloque_parametro_boton = (String) objects_mapa.get(k_mapa_nuevo_bloque_parametro_boton);
             nuevo_parametro_boton = (String) objects_mapa.get(k_mapa_nuevo_parametro_boton);
             tipo_codigo = (String) objects_mapa.get(k_mapa_tipo_codigo);
@@ -383,7 +412,9 @@ public class completar_acciones extends A_ejecutores {
             }            
             if (ret) {
                 if ((atributo == null || atributo.trim().isEmpty())
-                 && (semiconstante == null || semiconstante.trim().isEmpty())) {
+                 && (semiconstante == null || semiconstante.trim().isEmpty())
+                 && (valor_entero == null || valor_entero.trim().isEmpty())
+                 && (valor_decimal == null || valor_decimal.trim().isEmpty())) {
                     espacios = (String) objects_mapa.get(k_mapa_espacios_num);
                     espacios_num = Integer.valueOf(espacios);
                     i = 0;
@@ -520,6 +551,9 @@ public class completar_acciones extends A_ejecutores {
             }
             if (ret) {
                 ret = contexto.modificar(k_contexto_archivo_abierto, final_texto.dar()).es();
+            }
+            if (ret) {
+                ret = guardar_cambio(contexto, final_texto.dar(), error);
             }
             if (ret) {
                 linea = Integer.valueOf(linea_mapa);

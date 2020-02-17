@@ -50,6 +50,18 @@
         "titulo":""
     },
     {
+        "plantilla":"lineas",
+        "nombre":"valor_entero",
+        "valor":"",
+        "titulo":"{$in_}Valor entero: {$_in}"
+    }, 
+    {
+        "plantilla":"lineas",
+        "nombre":"valor_decimal",
+        "valor":"",
+        "titulo":"{$in_}Valor decimal<br>(d+[,.]d+ed+): {$_in}"
+    }, 
+    {
         "plantilla":"divs",
         "nombre":"metodos_comunes",
         "titulo":"{$in_}Métodos comunes: {$_in}<br>Si se selecciona un método común y, a continuación, una acción, parámetro o variable o subacción; se incluye tras él. Si se pulsa el botón aceptar, se incluye tras la llamada a una acción, de la línea (si la hay). "

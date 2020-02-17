@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <style>
+            .innui_webtec_gui_titulo {
+                display: inline-block;
+                width: 200px;    
+                vertical-align: top;
+            }
+            .innui_webtec_gui_entrada {
+                display: inline-block;
+                width: 400px; 
+            }
+            .innui_webtec_gui_div_error {
+                color: red; 
+            }  
+            .innui_webtec_gui_div_boton {
+                width: 600px; 
+            }  
+            .innui_webtec_gui_boton {
+                display: inline-block;
+                width: 150px; 
+            }            
+        </style>       
+    </head>
+    <body>
+        {% include #innui_webtec_gui_autoformularios %}
+        {#innui_webtec_gui_autoformularios}
+        {% if $innui_webtec_gui_autoformularios_error %}        
+        <div class="innui_webtec_gui_div_error">{$innui_webtec_gui_autoformularios_error: }</div>
+        {% endif %}
+        <form class="innui_webtec_gui_form" method="get" action="{$innui_webtec_gui_autoformularios_accion}">
+            {$innui_webtec_gui_autoformularios}
+            <div class="innui_webtec_gui_div_boton">
+                <button type="button" class="innui_webtec_gui_boton" name="innui_webtec_gui_autoformularios_cancelacion"
+                    onclick="window.location.href = '{$innui_webtec_gui_autoformularios_cancelacion}';">{$in_}Cancelar{$_in}</button>
+                <button type="submit" class="innui_webtec_gui_boton" name="innui_webtec_gui_autoformularios_enviar">{$in_}Enviar{$_in}</button>
+            </div>
+        </form>
+        {#} 
+    </body>
+</html>

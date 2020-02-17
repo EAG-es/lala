@@ -32,19 +32,19 @@
         "plantilla":"lineas",
         "nombre":"valor_texto",
         "valor":"",
-        "titulo":"{$in_}Valor texto{$_in}"
+        "titulo":"{$in_}Valor texto: {$_in}"
     }, 
     {
         "plantilla":"lineas",
         "nombre":"valor_entero",
         "valor":"",
-        "titulo":"{$in_}Valor entero{$_in}"
+        "titulo":"{$in_}Valor entero: {$_in}"
     }, 
     {
         "plantilla":"lineas",
         "nombre":"valor_decimal",
         "valor":"",
-        "titulo":"{$in_}Valor decimal<br>(d+[,.]d+ed+){$_in}"
+        "titulo":"{$in_}Valor decimal<br>(d+[,.]d+ed+): {$_in}"
     }, 
     {
         "plantilla":"radios",

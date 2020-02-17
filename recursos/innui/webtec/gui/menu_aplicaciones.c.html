@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <style>
+            {% include #innui_webtec_gui_menu_aplicaciones_css %}
+            {#innui_webtec_gui_menu_aplicaciones_css}
+            .innui_webtec_gui_menu_aplicaciones_div {
+                display: inline-block;
+            }
+            .innui_webtec_gui_menu_aplicaciones_a {
+                display: inline-block;
+                text-decoration: none;
+            }
+            {#}
+        </style>
+        <script type="text/javascript">
+            {% include #in_js %}
+            {#in_js}
+            var in_array = [];
+            function in_traducir_texto(clave) {
+                var entry;
+                var entry_error = { clave: "", valor:""};
+                var texto = "";
+                var encontrado = false;
+                var entry_clave_mis = "";
+                var clave_mis = "";
+                clave_mis = clave.toLowerCase();
+                for (entry of in_array) {
+                    entry_clave_mis = entry.clave.toLowerCase();
+                    if (entry_clave_mis === clave_mis) {
+                        encontrado = true;
+                        texto = entry.valor;
+                        break;
+                    }
+                }
+                if (encontrado === false) {
+                    entry_error.clave = clave;
+                    entry_error.valor = clave;
+                    console.log(entry_error);
+                    texto = clave;
+                }
+                return texto;
+            }
+            function in_traducir(clave) {
+                var texto = "";
+                texto = in_traducir_texto(clave);
+                document.write(texto);
+            }
+            {#}
+            {% include #in_parcial_js %}
+            {#in_parcial_js}
+            var in_{$in_parcial}_array = {$in_idioma_array};
+            in_array = in_array.concat(in_{$in_parcial}_array);
+            {#}
+        </script>         
+        <script type="text/javascript">
+            {% include #innui_webtec_gui_menu_aplicaciones_js %}
+            {#innui_webtec_gui_menu_aplicaciones_js}
+            var innui_webtec_gui_menu_aplicaciones_contenido_array = {$innui_webtec_gui_menu_aplicaciones_contenido_array};
+            var innui_webtec_gui_menu_aplicaciones_accion_array = {$innui_webtec_gui_menu_aplicaciones_accion_array};
+            var innui_webtec_gui_menu_aplicaciones_objeto_array = {$innui_webtec_gui_menu_aplicaciones_objeto_array};
+            var innui_webtec_gui_menu_aplicaciones_contenido = "";
+            var innui_webtec_gui_menu_aplicaciones_accion = "";
+            var innui_webtec_gui_menu_aplicaciones_objeto = "";
+            function innui_webtec_gui_menu_aplicaciones_poner_contenido(texto) {
+                var objeto;
+                objeto = document.getElementById("innui_webtec_gui_menu_aplicaciones_div_4");
+                objeto.innerHTML = texto;
+            }
+            function innui_webtec_gui_menu_aplicaciones_poner_accion() {
+                innui_webtec_gui_menu_aplicaciones_poner_contenido(innui_webtec_gui_menu_aplicaciones_accion);
+            }
+            function innui_webtec_gui_menu_aplicaciones_poner_objeto() {
+                innui_webtec_gui_menu_aplicaciones_poner_contenido(innui_webtec_gui_menu_aplicaciones_objeto);
+            }
+            function innui_webtec_gui_menu_aplicaciones_procesar_cambio() {
+                var objeto;
+                var texto;                
+                objeto = document.getElementById("innui_webtec_gui_menu_aplicaciones_input_1");
+                texto = objeto.value;
+                texto = texto.toLowerCase();
+                innui_webtec_gui_menu_aplicaciones_encontrar_contenido(texto);
+            }
+            function innui_webtec_gui_menu_aplicaciones_encontrar_contenido(buscado) {
+                var texto;
+                var elemento;
+                texto = "";
+                var patron_buscado = buscado.toLowerCase();                
+                patron_buscado = patron_buscado.replace("<", "\\<");
+                patron_buscado = patron_buscado.replace("(", "\\(");
+                patron_buscado = patron_buscado.replace("[", "\\[");
+                patron_buscado = patron_buscado.replace("{", "\\{");
+                patron_buscado = patron_buscado.replace("\\", "\\\\");
+                patron_buscado = patron_buscado.replace("^", "\\^");
+                patron_buscado = patron_buscado.replace("-", "\\-");
+                patron_buscado = patron_buscado.replace("=", "\\=");
+                patron_buscado = patron_buscado.replace("$", "\\$");
+                patron_buscado = patron_buscado.replace("!", "\\!");
+                patron_buscado = patron_buscado.replace("|", "\\|");
+                patron_buscado = patron_buscado.replace("]", "\\]");
+                patron_buscado = patron_buscado.replace("}", "\\}");
+                patron_buscado = patron_buscado.replace(")", "\\)");
+                patron_buscado = patron_buscado.replace("?", "\\?");
+                patron_buscado = patron_buscado.replace("*", "\\*");
+                patron_buscado = patron_buscado.replace("+", "\\+");
+                patron_buscado = patron_buscado.replace(".", "\\.");
+                patron_buscado = patron_buscado.replace(">", "\\>");
+                patron_buscado = patron_buscado.replace("á", "a");
+                patron_buscado = patron_buscado.replace("é", "e");
+                patron_buscado = patron_buscado.replace("í", "i");
+                patron_buscado = patron_buscado.replace("ó", "o");
+                patron_buscado = patron_buscado.replace("ú", "u");
+                patron_buscado = patron_buscado.replace("a", "[aá]");
+                patron_buscado = patron_buscado.replace("e", "[eé]");
+                patron_buscado = patron_buscado.replace("i", "[ií]");
+                patron_buscado = patron_buscado.replace("o", "[oó]");
+                patron_buscado = patron_buscado.replace("u", "[uú]");
+                var reg_exp = new RegExp(patron_buscado, "i");
+                var que_buscar = "";
+                for (elemento of innui_webtec_gui_menu_aplicaciones_contenido_array) {
+                    que_buscar = elemento.texto; //.toLowerCase();
+                    if (reg_exp.test(que_buscar)) {
+                        texto = texto + elemento.prefijo 
+                        + que_buscar
+                        + elemento.sufijo;
+                    }
+                }
+                innui_webtec_gui_menu_aplicaciones_poner_contenido(texto);
+            }
+            function innui_webtec_gui_menu_aplicaciones_crear_contenido() {
+                innui_webtec_gui_menu_aplicaciones_encontrar_contenido("");
+            }
+            function innui_webtec_gui_menu_aplicaciones_crear_accion() {
+                var elemento;
+                var traduccion;
+                innui_webtec_gui_menu_aplicaciones_accion = "";
+                for (elemento of innui_webtec_gui_menu_aplicaciones_accion_array) {
+                    traduccion = in_traducir_texto(elemento.texto.toLowerCase());
+                    innui_webtec_gui_menu_aplicaciones_accion = innui_webtec_gui_menu_aplicaciones_accion
+                        + elemento.prefijo 
+                        + traduccion
+                        + elemento.infijo 
+                        + traduccion
+                        + elemento.sufijo;
+                }
+            }
+            function innui_webtec_gui_menu_aplicaciones_crear_objeto() {
+                var elemento;
+                var traduccion;
+                innui_webtec_gui_menu_aplicaciones_objeto = "";
+                for (elemento of innui_webtec_gui_menu_aplicaciones_objeto_array) {
+                    traduccion = in_traducir_texto(elemento.texto.toLowerCase());
+                    innui_webtec_gui_menu_aplicaciones_objeto = innui_webtec_gui_menu_aplicaciones_objeto
+                        + elemento.prefijo 
+                        + traduccion
+                        + elemento.infijo 
+                        + traduccion
+                        + elemento.sufijo;
+                }
+            }
+            function innui_webtec_gui_menu_aplicaciones_traducir_contenido() {
+                for (elemento of innui_webtec_gui_menu_aplicaciones_contenido_array) {
+                    elemento.texto = in_traducir_texto(elemento.texto.toLowerCase());
+                }
+            }
+            function innui_webtec_gui_menu_aplicaciones_iniciar() {
+                innui_webtec_gui_menu_aplicaciones_traducir_contenido();
+                innui_webtec_gui_menu_aplicaciones_crear_contenido();
+                innui_webtec_gui_menu_aplicaciones_crear_accion();
+                innui_webtec_gui_menu_aplicaciones_crear_objeto();
+            }
+            {#}
+        </script>
+    </head>
+
+    <body>
+        {% include #innui_webtec_gui_menu_aplicaciones %}
+        {#innui_webtec_gui_menu_aplicaciones}
+        <div id="innui_webtec_gui_menu_aplicaciones">
+            <div id="innui_webtec_gui_menu_aplicaciones_div_1" class="innui_webtec_gui_menu_aplicaciones_a">
+                <input id="innui_webtec_gui_menu_aplicaciones_input_1" name="innui_webtec_gui_menu_aplicaciones_input_1" type="text" value="" onkeypress="innui_webtec_gui_menu_aplicaciones_procesar_cambio()" />
+            </div>
+            <a href='' id="innui_webtec_gui_menu_aplicaciones_div_2" class="innui_webtec_gui_menu_aplicaciones_a" onclick="innui_webtec_gui_menu_aplicaciones_poner_accion(); return false;">{$in_}acci&oacute;n{$_in}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href='' id="innui_webtec_gui_menu_aplicaciones_div_3" class="innui_webtec_gui_menu_aplicaciones_a" onclick="innui_webtec_gui_menu_aplicaciones_poner_objeto(); return false;">{$in_}objeto{$_in}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            {$innui_webtec_gui_menu_aplicaciones_extras: }<br/>
+            <div class="innui_webtec_gui_menu_aplicaciones_contenido" id="innui_webtec_gui_menu_aplicaciones_div_4"> </div>
+        </div>
+        <script type="text/javascript" charset="utf-8">
+            innui_webtec_gui_menu_aplicaciones_iniciar();
+        </script>        
+        {#}
+    </body>
+
+</html>

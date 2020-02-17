@@ -6,9 +6,11 @@
 package innui.webtec.lala;
 
 import static ingui.javafx.webtec.Webtec.k_prefijo_url;
+import static ingui.javafx.webtec.lala.Lala.k_deshacer_con_archivo;
 import innui.archivos.Utf8;
 import innui.contextos.contextos;
 import innui.contextos.textos;
+import innui.edicion.Deshacer_con_archivos;
 import innui.html.Urls;
 import static innui.html.Urls.k_protocolo_por_defecto;
 import innui.html.lala.Decoraciones;
@@ -203,9 +205,23 @@ public class abrir_archivos extends A_ejecutores {
             ret = Decoraciones.decorar(archivo_texto, decorado_texto, error_texto);
             if (ret) {
                 contexto.fondear_con_datos(k_contexto_archivo_abierto, decorado_texto.dar());
+                ret = guardar_cambio(contexto, decorado_texto.dar(), error);
             }
         }
         return ret;
     }
 
+    public static boolean guardar_cambio(contextos contexto, String texto, String [] error) {
+        boolean ret = true;
+        Deshacer_con_archivos deshacer_con_archivo = null;
+        deshacer_con_archivo = contexto.leer(k_deshacer_con_archivo).dar();
+        ret = (deshacer_con_archivo != null);
+        if (ret) {
+            ret = deshacer_con_archivo.guardar_cambio(texto, error);
+        } else {
+            ret = false;
+            error [0] = "No se ha encontrado el objeto que gestiona las operaciones deshacer-rehacer. ";
+        }
+        return ret;
+    }
 }

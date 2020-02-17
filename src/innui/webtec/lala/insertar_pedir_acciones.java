@@ -64,6 +64,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static innui.webtec.lala.insertar_nivel_codigos.k_ruta_insertar_pedir_accion;
+import static innui.webtec.lala.abrir_archivos.guardar_cambio;
 
 /**
  * Clase de ejemplo de procesamiento de un formulario, en el que se encuentra un error, y se retorna el mismo formulario más el mensaje de error
@@ -430,6 +431,9 @@ public class insertar_pedir_acciones extends A_ejecutores {
             }
             if (ret) {
                 ret = contexto.modificar(k_contexto_archivo_abierto, final_texto.dar()).es();
+            }
+            if (ret) {
+                ret = guardar_cambio(contexto, final_texto.dar(), error);
             }
             if (ret) {
                 linea = Integer.valueOf(linea_mapa);

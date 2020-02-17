@@ -52,6 +52,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
+import static innui.webtec.lala.abrir_archivos.guardar_cambio;
 
 /**
  * Clase de ejemplo, con plantilla asociada, de aplicación que hace uso de los autoformularios.
@@ -396,6 +397,9 @@ public class insertar_variables extends A_ejecutores {
             }
             if (ret) {
                 ret = contexto.modificar(k_contexto_archivo_abierto, final_texto.dar()).es();
+            }
+            if (ret) {
+                ret = guardar_cambio(contexto, final_texto.dar(), error);
             }
             if (ret) {
                 linea = Integer.valueOf(linea_mapa);

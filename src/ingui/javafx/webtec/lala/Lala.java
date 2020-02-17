@@ -7,6 +7,7 @@ package ingui.javafx.webtec.lala;
 
 import ingui.javafx.webtec.Webtec;
 import innui.contextos.contextos;
+import innui.edicion.Deshacer_con_archivos;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class Lala extends Webtec {
      * Atributo con la url por defecto si no se pasa una url por la línea de comando.
      */
     public static String k_url_por_defecto_texto = "https://"+Webtec.k_prefijo_url+"/"; //NOI18N
+    public static String k_deshacer_con_archivo = "deshacer_con_archivo";
     /**
      * Constructor con un mapeo de patrones de url (sin k_prefijo_url) y las clases que ejecutar con su plantilla, de igual nombre
      * También construye el objeto donde almacenar los datos de contexto.
@@ -68,6 +70,8 @@ public class Lala extends Webtec {
         Map <String, Object> datos_mapa;
         String url_texto = k_url_por_defecto_texto;
         try {
+            Deshacer_con_archivos deshacer_con_archivo = new Deshacer_con_archivos ();
+            contexto.fondear_con_datos(k_deshacer_con_archivo, deshacer_con_archivo);
             datos_mapa = new LinkedHashMap();
             if (url_linea_comando_texto != null && url_linea_comando_texto.isEmpty() == false) {
                 url_texto = url_linea_comando_texto;

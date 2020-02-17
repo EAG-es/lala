@@ -40,6 +40,7 @@ import static innui.webtec.lala.abrir_archivos.k_contexto_archivo_abierto;
 import static innui.webtec.lala.editar_archivos.k_mapa_editar_archivos_error;
 import static innui.webtec.lala.insertar_lineas.k_ruta_insertar_lineas;
 import static innui.webtec.lala.insertar_pedir_acciones.k_mapa_instruccion;
+import static innui.webtec.lala.abrir_archivos.guardar_cambio;
 
 /**
  * Clase de ejemplo de procesamiento de un formulario, en el que se encuentra un error, y se retorna el mismo formulario más el mensaje de error
@@ -209,6 +210,9 @@ public class insertar_nivel_codigos extends A_ejecutores {
                 }
                 if (ret) {
                     ret = contexto.modificar(k_contexto_archivo_abierto, final_texto.dar()).es();
+                }
+                if (ret) {
+                    ret = guardar_cambio(contexto, final_texto.dar(), error);
                 }
                 if (ret) {
                     linea = Integer.valueOf(linea_mapa);

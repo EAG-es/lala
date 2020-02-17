@@ -22,6 +22,7 @@ import static innui.webtec.lala.editar_archivos.k_mapa_editar_archivos_error;
 import static innui.webtec.lala.editar_archivos.k_ruta_editar_archivos;
 import java.net.URL;
 import java.util.Map;
+import static innui.webtec.lala.abrir_archivos.guardar_cambio;
 
 /**
  * Clase de ejemplo, con plantilla asociada, de aplicación que hace uso de los autoformularios.
@@ -82,6 +83,9 @@ public class comentar_lineas extends A_ejecutores {
             if (ret) {
                 texto_final= previo_texto + texto_linea + posterior_texto;
                 ret = contexto.modificar(k_contexto_archivo_abierto, texto_final).es();
+            }
+            if (ret) {
+                ret = guardar_cambio(contexto, texto_final, error);
             }
             if (ret) {
                 ret = poner_url_ref_a_contenido(k_prefijo_ancla_linea + linea_mapa, objects_mapa, error);

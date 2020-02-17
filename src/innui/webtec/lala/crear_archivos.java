@@ -6,7 +6,10 @@
 package innui.webtec.lala;
 
 import static ingui.javafx.webtec.Webtec.k_prefijo_url;
+import static ingui.javafx.webtec.lala.Lala.k_deshacer_con_archivo;
 import static innui.archivos.Rutas.aumentar_ruta;
+import innui.contextos.contextos;
+import innui.edicion.Deshacer_con_archivos;
 import innui.html.Urls;
 import static innui.html.Urls.k_protocolo_por_defecto;
 import innui.webtec.A_ejecutores;
@@ -27,6 +30,7 @@ import static innui.webtec.lala.editar_archivos.k_ruta_editar_archivos;
 import static innui.webtec.lala.paginas_principales.poner_cabecera_en_mapa;
 import java.io.File;
 import java.net.URL;
+import static innui.webtec.lala.abrir_archivos.guardar_cambio;
 
 /**
  * Clase de ejemplo, con plantilla asociada, de aplicación que hace uso de los autoformularios.
@@ -177,6 +181,9 @@ public class crear_archivos extends A_ejecutores {
                                 ret = false;
                             }
                         }
+                        if (ret) {
+                            ret = iniciar_deshacer(contexto, error);
+                        }
                     }
                 }
             }
@@ -232,4 +239,17 @@ public class crear_archivos extends A_ejecutores {
         return ret;
     }
     
+    public static boolean iniciar_deshacer(contextos contexto, String [] error) {
+        boolean ret = true;
+        Deshacer_con_archivos deshacer_con_archivo = null;
+        deshacer_con_archivo = contexto.leer(k_deshacer_con_archivo).dar();
+        ret = (deshacer_con_archivo != null);
+        if (ret) {
+            ret = deshacer_con_archivo.iniciar(error);
+        } else {
+            ret = false;
+            error [0] = "No se ha encontrado el objeto que gestiona las operaciones deshacer-rehacer. ";
+        }
+        return ret;
+    }
 }

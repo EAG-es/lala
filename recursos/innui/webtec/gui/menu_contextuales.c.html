@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <style>
+            {% include #innui_webtec_gui_menu_contextuales_css %}
+            {#innui_webtec_gui_menu_contextuales_css}
+            #innui_webtec_gui_menu_contextuales {
+                position: absolute;
+                z-index: 9;
+                visibility: hidden;
+                background-color: beige;
+            }
+            #innui_webtec_gui_menu_contextuales_arrastrar {
+                cursor: move;
+                z-index: 10;
+            }
+            #innui_webtec_gui_menu_contextuales_input_1 {
+                visibility: hidden;
+            }
+            .innui_webtec_gui_menu_acontextuales_div {
+                display: inline-block;
+            }
+            .innui_webtec_gui_menu_contextuales_a {
+                display: inline-block;
+                text-decoration: none;
+            }
+            {#}
+        </style>
+        <script type="text/javascript">
+            {% include #innui_webtec_gui_menu_contextuales_js %}
+            {#innui_webtec_gui_menu_contextuales_js}
+            var innui_webtec_gui_menu_contextuales_contenido_array = {$innui_webtec_gui_menu_contextuales_contenido_array};
+            function innui_webtec_gui_menu_contextuales_poner_contenido(texto) {
+                var objeto;
+                objeto = document.getElementById("innui_webtec_gui_menu_contextuales_div_4");
+                objeto.innerHTML = texto;
+            }
+            function innui_webtec_gui_menu_contextuales_encontrar_contenido(buscado, extras) {
+                var texto;
+                var elemento;
+                texto = "";
+                var patron_buscado = buscado.toLowerCase();                
+                patron_buscado = patron_buscado.replace("<", "\\<");
+                patron_buscado = patron_buscado.replace("(", "\\(");
+                patron_buscado = patron_buscado.replace("[", "\\[");
+                patron_buscado = patron_buscado.replace("{", "\\{");
+                patron_buscado = patron_buscado.replace("\\", "\\\\");
+                patron_buscado = patron_buscado.replace("^", "\\^");
+                patron_buscado = patron_buscado.replace("-", "\\-");
+                patron_buscado = patron_buscado.replace("=", "\\=");
+                patron_buscado = patron_buscado.replace("$", "\\$");
+                patron_buscado = patron_buscado.replace("!", "\\!");
+                patron_buscado = patron_buscado.replace("|", "\\|");
+                patron_buscado = patron_buscado.replace("]", "\\]");
+                patron_buscado = patron_buscado.replace("}", "\\}");
+                patron_buscado = patron_buscado.replace(")", "\\)");
+                patron_buscado = patron_buscado.replace("?", "\\?");
+                patron_buscado = patron_buscado.replace("*", "\\*");
+                patron_buscado = patron_buscado.replace("+", "\\+");
+                patron_buscado = patron_buscado.replace(".", "\\.");
+                patron_buscado = patron_buscado.replace(">", "\\>");
+                patron_buscado = patron_buscado.replace("á", "a");
+                patron_buscado = patron_buscado.replace("é", "e");
+                patron_buscado = patron_buscado.replace("í", "i");
+                patron_buscado = patron_buscado.replace("ó", "o");
+                patron_buscado = patron_buscado.replace("ú", "u");
+                patron_buscado = patron_buscado.replace("a", "[aá]");
+                patron_buscado = patron_buscado.replace("e", "[eé]");
+                patron_buscado = patron_buscado.replace("i", "[ií]");
+                patron_buscado = patron_buscado.replace("o", "[oó]");
+                patron_buscado = patron_buscado.replace("u", "[uú]");
+                var reg_exp = new RegExp(patron_buscado, "i");
+                var que_buscar = "";
+                for (elemento of innui_webtec_gui_menu_contextuales_contenido_array) {
+                    que_buscar = elemento.texto; //.toLowerCase();
+                    if (reg_exp.test(que_buscar)) {
+                        texto = texto + elemento.prefijo 
+                        + que_buscar
+                        + elemento.sufijo;
+                    }
+                }
+                texto = texto.replace(/innui_webtec_gui_menu_contextuales_extras/g, extras);
+                innui_webtec_gui_menu_contextuales_poner_contenido(texto);
+            }
+            function innui_webtec_gui_menu_contextuales_traducir_contenido() {
+                for (elemento of innui_webtec_gui_menu_contextuales_contenido_array) {
+                    elemento.texto = in_traducir_texto(elemento.texto.toLowerCase());
+                }
+            }
+            function innui_webtec_gui_menu_contextuales_ocultar_menu_contextual() {
+                var div_menu_contextual = document.getElementById("innui_webtec_gui_menu_contextuales");
+                div_menu_contextual.style.visibility = "hidden";
+            }
+            function innui_webtec_gui_menu_contextuales_mostrar_menu_contextual(objeto_llamante, palabra_clave, extras) {
+                var div_menu_contextual;
+                div_menu_contextual = document.getElementById("innui_webtec_gui_menu_contextuales");
+                innui_webtec_gui_menu_contextuales_encontrar_contenido(palabra_clave, extras);
+                div_menu_contextual.style.visibility = 'visible';
+                div_menu_contextual.style.top = objeto_llamante.offsetTop + "px";
+                div_menu_contextual.style.left = objeto_llamante.offsetLeft + "px";
+                
+            }
+            function innui_webtec_gui_menu_contextuales_hacer_elemento_arrastrable(elemento) {
+                var pos1 = 0;
+                var pos2 = 0;
+                var pos3 = 0;
+                var pos4 = 0;
+                if (document.getElementById(elemento.id + "_arrastrar")) {
+                    document.getElementById(elemento.id + "_arrastrar").onmousedown = asignar_eventos_arrastracion;
+                } else {
+                    elemento.onmousedown = asignar_eventos_arrastracion;                    
+                }
+                /* función anidada */
+                function asignar_eventos_arrastracion(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    document.onmouseup = cerrar_eventos_arrastracioncloseDragElement;
+                    document.onmousemove = arrastrar_elemento;
+                }
+                /* función anidada */
+                function cerrar_eventos_arrastracioncloseDragElement() {
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+                /* función anidada */
+                function arrastrar_elemento(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    elemento.style.top = (elemento.offsetTop - pos2) + "px";
+                    elemento.style.left = (elemento.offsetLeft - pos1) + "px";
+                }
+            }
+            {#}
+        </script>
+    </head>
+
+    <body>
+        {% include #innui_webtec_gui_menu_contextuales %}
+        {#innui_webtec_gui_menu_contextuales}
+        <div id="innui_webtec_gui_menu_contextuales">
+            <div id="innui_webtec_gui_menu_contextuales_arrastrar">
+            <button type="button" onclick="innui_webtec_gui_menu_contextuales_ocultar_menu_contextual()">X</button>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="innui_webtec_gui_menu_contextuales_contenido" id="innui_webtec_gui_menu_contextuales_div_4"> </div>
+        </div>
+        <script type="text/javascript" charset="utf-8">
+            innui_webtec_gui_menu_contextuales_hacer_elemento_arrastrable(document.getElementById("innui_webtec_gui_menu_contextuales"));        
+        </script>        
+        {#}
+    </body>
+
+</html>

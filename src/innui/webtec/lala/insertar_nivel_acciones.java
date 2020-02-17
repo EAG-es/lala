@@ -62,6 +62,7 @@ import java.io.PrintStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static innui.html.lala.Decoraciones.k_comentario_doc_inicio;
+import static innui.webtec.lala.abrir_archivos.guardar_cambio;
 
 /**
  * Clase de ejemplo de procesamiento de un formulario, en el que se encuentra un error, y se retorna el mismo formulario más el mensaje de error
@@ -342,7 +343,9 @@ public class insertar_nivel_acciones extends A_ejecutores {
                             nueva_linea = nueva_linea + relleno + k_indentado + k_captura + "\n";
                             nueva_linea = nueva_linea + relleno + k_indentado + k_finalmente + "\n";
                             nueva_linea = nueva_linea + relleno + k_indentado + k_fin_bloque_tratable + "\n";
-                            nueva_linea = nueva_linea + relleno + k_retornar + "\n";
+                            nueva_linea = nueva_linea + relleno + k_retornar + k_comentario_doc_inicio 
+                                    + "dato opcional" 
+                                    + k_comentario_fin + "\n";
                             ret = escribir_archivo_acciones(contexto, objects_mapa, nombre_accion, comentario_y_firma_accion, error);
                         }
                     }
@@ -378,6 +381,9 @@ public class insertar_nivel_acciones extends A_ejecutores {
             }
             if (ret) {
                 ret = contexto.modificar(k_contexto_archivo_abierto, final_texto.dar()).es();
+            }
+            if (ret) {
+                ret = guardar_cambio(contexto, final_texto.dar(), error);
             }
             if (ret) {
                 linea = Integer.valueOf(linea_mapa);

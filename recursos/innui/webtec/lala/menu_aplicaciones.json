@@ -25,6 +25,16 @@
         "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
     },
     {
+        "texto": "Deshacer edicion",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/deshacer_edicion?deshacer_boton' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    },
+    {
+        "texto": "Rehacer edicion",
+        "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/lala/deshacer_edicion?rehacer_boton' class='innui_webtec_gui_menu_aplicaciones_a'>",
+        "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"
+    },
+    {
         "texto": "Ver historial",
         "prefijo": "<div class='innui_webtec_gui_menu_aplicaciones_div'><a href='https://innui/webtec/gui/ver_historiales' class='innui_webtec_gui_menu_aplicaciones_a'>",
         "sufijo": "</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>"

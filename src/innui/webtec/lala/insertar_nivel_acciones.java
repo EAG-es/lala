@@ -48,10 +48,8 @@ import static innui.webtec.lala.editar_archivos.k_mapa_editar_archivos_error;
 import static innui.html.lala.Decoraciones.k_variable;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_accion;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_error;
-import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_presentar;
 import static innui.webtec.lala.abrir_archivos.k_contexto_archivo_abierto;
 import static innui.webtec.lala.crear_archivos.k_extension_lala;
-import static innui.webtec.lala.crear_proyectos.k_carpeta_lala;
 import static innui.webtec.lala.crear_proyectos.k_configuraciones_archivo_seleccionado;
 import static innui.webtec.lala.crear_proyectos.k_configuraciones_ruta_seleccionada;
 import static innui.webtec.lala.crear_proyectos.k_prefijo_acciones;
@@ -62,6 +60,7 @@ import java.io.PrintStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static innui.html.lala.Decoraciones.k_comentario_doc_inicio;
+import static innui.html.lala.Decoraciones.k_documentacion_return;
 import static innui.webtec.lala.abrir_archivos.guardar_cambio;
 
 /**
@@ -308,6 +307,7 @@ public class insertar_nivel_acciones extends A_ejecutores {
             }
             if (ret) {
                 if (comentario.trim().isEmpty() == false) {
+                    comentario = comentario + relleno + k_comentario_marca_linea + k_documentacion_return + "\n";
                     comentario = comentario + relleno + k_comentario_fin + "\n";
                 }
                 texto = contexto.leer(k_contexto_archivo_abierto).dar();

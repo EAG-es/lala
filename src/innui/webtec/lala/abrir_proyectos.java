@@ -13,6 +13,7 @@ import innui.webtec.A_ejecutores;
 import static innui.webtec.Webtec_controlador.poner_redireccion;
 import innui.webtec.gui.autoformularios;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_accion;
+import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_cancelacion;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_enviar;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_error;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_presentar;
@@ -64,6 +65,7 @@ public class abrir_proyectos extends A_ejecutores {
     public boolean presentar(Map<String, Object> objects_mapa, String[] error) {
         boolean ret = true;
         autoformularios autoformulario;
+        URL url_cancelacion;
         try {
             ret = poner_cabecera_en_mapa(contexto, objects_mapa, error);
             if (ret == false) {
@@ -71,6 +73,8 @@ public class abrir_proyectos extends A_ejecutores {
             }
             autoformulario = new autoformularios();
             autoformulario.configurar(contexto);
+            url_cancelacion = Urls.completar_URL(k_prefijo_url + k_ruta_paginas_principales, k_protocolo_por_defecto, error);
+            objects_mapa.put(k_mapa_autoformularios_cancelacion, url_cancelacion.toExternalForm());
             ret = autoformulario.ejecutar(objects_mapa, error);
             if (ret == false) {
                 objects_mapa.put(k_mapa_autoformularios_error, error[0]); 

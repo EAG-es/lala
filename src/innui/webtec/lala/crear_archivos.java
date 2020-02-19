@@ -16,6 +16,7 @@ import innui.webtec.A_ejecutores;
 import static innui.webtec.Webtec_controlador.poner_redireccion;
 import innui.webtec.gui.autoformularios;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_accion;
+import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_cancelacion;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_enviar;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_error;
 import static innui.webtec.gui.autoformularios.k_mapa_autoformularios_presentar;
@@ -31,6 +32,7 @@ import static innui.webtec.lala.paginas_principales.poner_cabecera_en_mapa;
 import java.io.File;
 import java.net.URL;
 import static innui.webtec.lala.abrir_archivos.guardar_cambio;
+import static innui.webtec.lala.paginas_principales.k_ruta_paginas_principales;
 
 /**
  * Clase de ejemplo, con plantilla asociada, de aplicación que hace uso de los autoformularios.
@@ -76,6 +78,7 @@ public class crear_archivos extends A_ejecutores {
         autoformularios autoformulario;
         String ruta_seleccionada = null;
         Map<String, String> configuraciones_mapa = null;
+        URL url_cancelacion;
         try {
             ret = poner_cabecera_en_mapa(contexto, objects_mapa, error);
             if (ret) {
@@ -98,6 +101,8 @@ public class crear_archivos extends A_ejecutores {
             autoformulario = new autoformularios();
             autoformulario.configurar(contexto);
             objects_mapa.put(k_mapa_ruta_seleccionada, ruta_seleccionada);
+            url_cancelacion = Urls.completar_URL(k_prefijo_url + k_ruta_paginas_principales, k_protocolo_por_defecto, error);
+            objects_mapa.put(k_mapa_autoformularios_cancelacion, url_cancelacion.toExternalForm());
             ret = autoformulario.ejecutar(objects_mapa, error);
             if (ret == false) {
                 objects_mapa.put(k_mapa_autoformularios_error, error[0]); 

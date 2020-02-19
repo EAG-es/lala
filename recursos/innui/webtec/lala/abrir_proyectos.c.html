@@ -15,6 +15,11 @@
     <body>
         {% include innui/webtec/gui/menu_aplicaciones#innui_webtec_gui_menu_aplicaciones %}
         <h1>{$in_}Abrir proyecto{$_in}</h1>
+        <ul>
+            <li>Para incluir referencias a acciones de otros proyectos, debe incluir un enlace de archivo, al los archivos de acciones de los otros proyectos (situados en la carpeta raiz de cada proyecto), con nombre: acciones_&lt;nombre proyecto&gt;.la, dentro de la carpeta equivalente del proyecto actual; manteniendo su nombre.</li>
+            <li>Para incluir referencias a atributos de otros proyectos, debe incluir un enlace de archivo, al los archivos de atributos de los otros proyectos (situados en la carpeta raiz de cada proyecto/lala/innui/importable), con nombre: atributos_&lt;nombre proyecto&gt;.la, dentro de la carpeta equivalente del proyecto actual; manteniendo su nombre.</li>
+            <li>Para incluir referencias a semiconstantes de otros proyectos, debe incluir un enlace de archivo, al los archivos de las semiconstantes, para sus idiomas, de los otros proyectos (situados en la carpeta raiz de cada proyecto/lala/innui/importable), con nombre: semiconstantes_&lt;nombre proyecto&gt;_in_&lt;idioma&gt;.la, dentro de la carpeta equivalente del proyecto actual; manteniendo su nombre.</li>
+        </ul>
         {% include innui/webtec/gui/autoformularios#innui_webtec_gui_autoformularios %}
     </body>
 </html>

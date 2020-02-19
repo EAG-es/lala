@@ -52,6 +52,7 @@ public class Decoraciones {
     public static String k_comentario_fin = " */ ";
     public static String k_comentario_linea = " // ";
     public static String k_documentacion_param = " @param ";
+    public static String k_documentacion_return = " @return ";
     public static String k_si = " si ";
     public static String k_contra = " contra ";
     public static String k_fin_bloque_si = " /si ";
@@ -94,6 +95,7 @@ public class Decoraciones {
         add(k_verdad);
         add(k_falso);
         add(k_documentacion_param);
+        add(k_documentacion_return);
         add(k_ente_nulo);
     }};
         

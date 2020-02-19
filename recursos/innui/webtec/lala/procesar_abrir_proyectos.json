@@ -1,8 +1,0 @@
-[
-    {
-        "plantilla":"elegir_archivos",
-        "nombre":"ruta_seleccionada",
-        "valor":"",
-        "titulo":"{$in_}Seleccione la carpeta donde desarrollar el proyecto<br>(minusculas y plural):{$_in}"
-    }
-]

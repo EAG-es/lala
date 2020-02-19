@@ -1,8 +1,0 @@
-[
-    {
-        "plantilla":"elegir_archivos",
-        "nombre":"archivo_seleccionado",
-        "valor":"",
-        "titulo":"{$in_}Seleccione el archivo lala que abrir:{$_in}"
-    }
-]
